@@ -1,6 +1,11 @@
 const leaguesUrl = 'http://localhost:3000/leagues'
+const newLeagueButton = document.createElement('button')
 
 document.addEventListener('DOMContentLoaded', () => {
+    newLeagueButton.addEventListener('click', () => {
+        console.log('testing')
+        createNewLeagueForm()
+    })
     fetch(leaguesUrl)
         .then(response => response.json())
         .then((leagueData) => {
@@ -37,8 +42,13 @@ function renderAllLeagues(leagues) {
 }
 
 function createNewLeagueButton() {
-    const newLeagueButton = document.createElement('button')
     const docBody = document.querySelector('body') 
     docBody.appendChild(newLeagueButton)
     newLeagueButton.innerText = 'Add a New League'
+}
+
+function createNewLeagueForm() {
+    const docBody = document.querySelector('body')
+    const newLeagueForm = document.createElement('form')
+    docBody.appendChild(newLeagueForm)
 }
