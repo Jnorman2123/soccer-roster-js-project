@@ -55,16 +55,23 @@ function createNewLeagueForm() {
     const nameInput = document.createElement('input')
     const logoLabel = document.createElement('label')
     const logoInput = document.createElement('input')
+    const countryLabel = document.createElement('label')
+    const countryInput = document.createElement('input')
     docBody.innerHTML = ''
     docBody.appendChild(newLeagueForm)
     newLeagueForm.appendChild(nameLabel)
     newLeagueForm.appendChild(nameInput)
     newLeagueForm.appendChild(logoLabel)
     newLeagueForm.appendChild(logoInput)
+    newLeagueForm.appendChild(countryLabel)
+    newLeagueForm.appendChild(countryInput)
     nameLabel.innerText = 'League Name: '
     logoLabel.innerText = 'League Logo Url: '
+    countryLabel.innerText = 'League Country: '
     nameInput.setAttribute('id', 'league_name')
     nameInput.setAttribute('name', 'league_name')
     logoInput.setAttribute('id', 'league_logo')
     logoInput.setAttribute('name', 'league_logo')
+    countryInput.setAttribute('id', 'league_country')
+    countryInput.setAttribute('name', 'league_country')
 }
