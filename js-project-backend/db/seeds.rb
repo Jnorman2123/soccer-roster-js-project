@@ -7,3 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 leagues = League.create([{ name: 'English Premier League', logo: 'https://a1.espncdn.com/combiner/i?img=%2Fi%2Fleaguelogos%2Fsoccer%2F500%2F23.png', country: 'England', division: "1st"}, 
     { name: 'LaLiga Santander', logo: 'https://i.pinimg.com/600x315/21/51/49/2151491e4502460763fe81aff4473217.jpg', country: 'Spain', division: '1st'}])
+
+teams = Team.create([{ name: 'Chelsea F.C.', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/180px-Chelsea_FC.svg.png', nickname: 'The Blues, The Pensioners', stadium: 'Stamford Bridge', manager: 'Frank Lampard', year_founded: 1905, league_id: 1}, 
+    { name: 'Barcelona F.C.', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/180px-FC_Barcelona_%28crest%29.svg.png', nickname: 'Barca, Blaugrana', stadium: 'Camp Nou', manager: 'Quigue Setien', year_founded: 1899, league_id: 2}]) 
+    
+    
