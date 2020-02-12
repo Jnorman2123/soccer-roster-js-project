@@ -4,12 +4,14 @@ class LeaguesController < ApplicationController
   # GET /leagues
   # GET /leagues.json
   def index
-    @leagues = League.all
+    leagues = League.all
+    render json: leagues
   end
 
   # GET /leagues/1
   # GET /leagues/1.json
   def show
+    render json: @league
   end
 
   # GET /leagues/new

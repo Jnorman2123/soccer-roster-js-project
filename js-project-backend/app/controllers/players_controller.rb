@@ -4,12 +4,14 @@ class PlayersController < ApplicationController
   # GET /players
   # GET /players.json
   def index
-    @players = Player.all
+    players = Player.all
+    render json: players
   end
 
   # GET /players/1
   # GET /players/1.json
   def show
+    render json: @player
   end
 
   # GET /players/new
