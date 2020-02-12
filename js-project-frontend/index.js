@@ -1,5 +1,6 @@
 const leaguesUrl = 'http://localhost:3000/leagues'
 const newLeagueButton = document.createElement('button')
+const newLeagueSubmit = document.createElement('submit')
 
 document.addEventListener('DOMContentLoaded', () => {
     newLeagueButton.addEventListener('click', () => {
@@ -50,5 +51,12 @@ function createNewLeagueButton() {
 function createNewLeagueForm() {
     const docBody = document.querySelector('body')
     const newLeagueForm = document.createElement('form')
+    const nameLabel = document.createElement('label')
+    const nameInput = document.createElement('input')
+    docBody.innerHTML = ''
     docBody.appendChild(newLeagueForm)
+    newLeagueForm.appendChild(nameLabel)
+    newLeagueForm.appendChild(nameInput)
+    nameLabel.innerText = 'League Name'
+    nameInput.innerHTML = `id="league_name" name="league_name"`
 }
