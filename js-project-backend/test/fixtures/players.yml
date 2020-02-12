@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  image: MyString
+  nationality: MyString
+  appearances: 1
+  goals: 1
+  market_value: MyString
+  jersey_number: 1
+  age: 1
+  team: one
+
+two:
+  name: MyString
+  image: MyString
+  nationality: MyString
+  appearances: 1
+  goals: 1
+  market_value: MyString
+  jersey_number: 1
+  age: 1
+  team: two
