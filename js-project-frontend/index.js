@@ -16,11 +16,14 @@ function renderLeague(league) {
     const leagueCard = document.createElement('div')
     const leagueName = document.createElement('h1')
     const leagueLogo = document.createElement('img')
+    const leagueCountry = document.createElement('h2')
     docBody.appendChild(leagueCard)
     leagueCard.appendChild(leagueName)
     leagueCard.appendChild(leagueLogo)
-    leagueName.innerHTML = league.name
+    leagueCard.appendChild(leagueCountry)
+    leagueName.innerText = league.name
     leagueLogo.src = `${league.logo}`
+    leagueCountry.innerText = league.country
 }
 
 function renderAllLeagues(leagues) {
