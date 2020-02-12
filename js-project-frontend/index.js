@@ -8,16 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
 fetch(leaguesUrl)
     .then(response => response.json())
     .then((leagueData) => {
-        leagueData.map(data => {
-            return renderLeague(data)
-        })
+        return renderAllLeagues(leagueData)
     })
 
-function renderLeague(data) {
+function renderLeague(league) {
     const docBody = document.querySelector('body')
     const leagueCard = document.createElement('div')
     const leagueName = document.createElement('h1')
     docBody.appendChild(leagueCard)
     leagueCard.appendChild(leagueName)
-    leagueName.innerHTML = data.name
+    leagueName.innerHTML = league.name
+}
+
+function renderAllLeagues(leagues) {
+    leagues.map(league => {
+        return renderLeague(league)
+    })
 }
