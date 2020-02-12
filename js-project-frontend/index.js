@@ -15,9 +15,12 @@ function renderLeague(league) {
     const docBody = document.querySelector('body')
     const leagueCard = document.createElement('div')
     const leagueName = document.createElement('h1')
+    const leagueLogo = document.createElement('img')
     docBody.appendChild(leagueCard)
     leagueCard.appendChild(leagueName)
+    leagueCard.appendChild(leagueLogo)
     leagueName.innerHTML = league.name
+    leagueLogo.src = `${league.logo}`
 }
 
 function renderAllLeagues(leagues) {
