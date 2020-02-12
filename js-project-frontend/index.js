@@ -1,15 +1,16 @@
 const leaguesUrl = 'http://localhost:3000/leagues'
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('this is working')
+    fetch(leaguesUrl)
+        .then(response => response.json())
+        .then((leagueData) => {
+            return renderAllLeagues(leagueData)
+        })
     
+    createNewLeagueButton()
 })
 
-fetch(leaguesUrl)
-    .then(response => response.json())
-    .then((leagueData) => {
-        return renderAllLeagues(leagueData)
-    })
+
 
 function renderLeague(league) {
     const docBody = document.querySelector('body')
@@ -33,4 +34,11 @@ function renderAllLeagues(leagues) {
     leagues.map(league => {
         return renderLeague(league)
     })
+}
+
+function createNewLeagueButton() {
+    const newLeagueButton = document.createElement('button')
+    const docBody = document.querySelector('body') 
+    docBody.appendChild(newLeagueButton)
+    newLeagueButton.innerText = 'Add a New League'
 }
