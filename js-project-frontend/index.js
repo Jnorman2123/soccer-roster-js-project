@@ -1,6 +1,6 @@
 const leaguesUrl = 'http://localhost:3000/leagues'
 const newLeagueButton = document.createElement('button')
-const newLeagueSubmit = document.createElement('submit')
+const newLeagueSubmit = document.createElement('input')
 
 document.addEventListener('DOMContentLoaded', () => {
     newLeagueButton.addEventListener('click', () => {
@@ -57,6 +57,8 @@ function createNewLeagueForm() {
     const logoInput = document.createElement('input')
     const countryLabel = document.createElement('label')
     const countryInput = document.createElement('input')
+    const divisionLabel = document.createElement('label')
+    const divisionInput = document.createElement('input')
     docBody.innerHTML = ''
     docBody.appendChild(newLeagueForm)
     newLeagueForm.appendChild(nameLabel)
@@ -65,13 +67,22 @@ function createNewLeagueForm() {
     newLeagueForm.appendChild(logoInput)
     newLeagueForm.appendChild(countryLabel)
     newLeagueForm.appendChild(countryInput)
+    newLeagueForm.appendChild(divisionLabel)
+    newLeagueForm.appendChild(divisionInput)
+    newLeagueForm.appendChild(newLeagueSubmit)
     nameLabel.innerText = 'League Name: '
     logoLabel.innerText = 'League Logo Url: '
     countryLabel.innerText = 'League Country: '
+    divisionLabel.innerText = 'Division Number: '
     nameInput.setAttribute('id', 'league_name')
     nameInput.setAttribute('name', 'league_name')
     logoInput.setAttribute('id', 'league_logo')
     logoInput.setAttribute('name', 'league_logo')
     countryInput.setAttribute('id', 'league_country')
     countryInput.setAttribute('name', 'league_country')
+    divisionInput.setAttribute('id', 'league_division')
+    divisionInput.setAttribute('name', 'league_division')
+    newLeagueSubmit.setAttribute('type', 'submit') 
+    newLeagueSubmit.setAttribute('value', 'Add a new League')
 }
+
