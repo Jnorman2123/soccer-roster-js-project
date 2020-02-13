@@ -19,11 +19,11 @@ function fetchLeagues() {
 }
 
 function fetchLeague(league) {
-    createEditLeagueButton()
     fetch(leaguesUrl + `/${league.id}`)
         .then(response => response.json())
         .then(leagueData => {
             document.querySelector('body').innerHTML = ''
+            createEditLeagueButton(league)
             return renderLeague(leagueData)
         })
 }
@@ -63,12 +63,12 @@ function createNewLeagueButton() {
     newLeagueButton.addEventListener('click', createNewLeagueForm)
 }
 
-function createEditLeagueButton() {
+function createEditLeagueButton(league) {
     const editLeagueButton = document.createElement('button') 
     const docBody = document.querySelector('body')
     docBody.appendChild(editLeagueButton)
     editLeagueButton.innerText = 'Edit League'
-    editLeagueButton.addEventListener('click', createEditLeagueForm)
+    editLeagueButton.addEventListener('click', createEditLeagueForm(league))
 }
 
 function createNewLeagueForm() {
@@ -121,16 +121,9 @@ function createNewLeague() {
     })
 }
 
-function editLeague() {
-    event.preventDefault()
-    const league = {
-        name: document.getElementById('league_name').value,
-        logo: document.getElementById('league_logo').value,
-        country: document.getElementById('league_country').value,
-        division: document.getElementById('league_division').value
-    }
-
-    fetch(leaguesUrl, {
+function editLeague(league) {
+    
+    fetch(leaguesUrl + `/${league.id}`, {
         method: 'PATCH',
         body: JSON.stringify(league),
         headers: {
@@ -152,7 +145,7 @@ function clearForm() {
     form.remove()
 }
 
-function createEditLeagueForm() {
+function createEditLeagueForm(league) {
     const editLeagueForm = document.createElement('form')
     const docBody = document.querySelector('body')
     
@@ -172,6 +165,6 @@ function createEditLeagueForm() {
     docBody.innerHTML = ''
     editLeagueForm.innerHTML = html
     docBody.appendChild(editLeagueForm)
-    editLeagueForm.addEventListener('submit', editNewLeague)
+    editLeagueForm.addEventListener('submit', editLeague(league))
     
 }
