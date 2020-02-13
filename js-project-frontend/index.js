@@ -18,8 +18,14 @@ function fetchLeagues() {
         
 }
 
-function fetchLeague() {
-
+function fetchLeague(league) {
+    createEditLeagueButton()
+    fetch(leaguesUrl + `/${league.id}`)
+        .then(response => response.json())
+        .then(leagueData => {
+            document.querySelector('body').innerHTML = ''
+            return renderLeague(leagueData)
+        })
 }
 
 function renderLeague(league) {
@@ -39,7 +45,7 @@ function renderLeague(league) {
     leagueCountry.innerText = league.country
     leagueDivision.innerText = league.division + ' division'
     leagueName.addEventListener('click', () => {
-        console.log('hello')
+        fetchLeague(league)
     })
 }
 
@@ -59,6 +65,7 @@ function createNewLeagueButton() {
 
 function createEditLeagueButton() {
     const editLeagueButton = document.createElement('button') 
+    const docBody = document.querySelector('body')
     docBody.appendChild(editLeagueButton)
     editLeagueButton.innerText = 'Edit League'
     editLeagueButton.addEventListener('click', createEditLeagueForm)
@@ -143,4 +150,28 @@ function editLeague() {
 function clearForm() {
     let form = document.querySelector('form')
     form.remove()
+}
+
+function createEditLeagueForm() {
+    const editLeagueForm = document.createElement('form')
+    const docBody = document.querySelector('body')
+    
+    let html = `
+        <form onsubmit="editNewLeague; return false;">
+        <label>League Name: </label>
+        <input type="text" id="league_name"><br>
+        <label>League Logo: </label>
+        <input type="text" id="league_logo"><br>
+        <label>League Country: </label>
+        <input type="text" id="league_country"><br>
+        <label>League Division: </label>
+        <input type="text" id="league_division"><br>
+        <input type="submit" value="Edit League">
+    `
+    
+    docBody.innerHTML = ''
+    editLeagueForm.innerHTML = html
+    docBody.appendChild(editLeagueForm)
+    editLeagueForm.addEventListener('submit', editNewLeague)
+    
 }
