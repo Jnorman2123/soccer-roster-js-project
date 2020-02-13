@@ -53,6 +53,16 @@ function createNewLeagueButton() {
     })
 }
 
+function createEditLeagueButton() {
+    const editLeagueButton = document.createElement('button')
+    const docBody = document.querySelector('body') 
+    docBody.appendChild(editLeagueButton)
+    editLeagueButton.innerText = 'Edit League'
+    editLeagueButton.addEventListener('click', () => {
+        createEditLeagueForm()
+    })
+}
+
 function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
 
@@ -131,8 +141,8 @@ function createNewLeague() {
     .then(response => {
         return response.json()
     })
-    .then(l => {
-        console.log("hello") 
+    .then(leagueData => {
+        console.log(leagueData) 
         fetchLeagues()
     })
 }

@@ -27,33 +27,28 @@ class LeaguesController < ApplicationController
   # POST /leagues.json
   def create
     league = League.new(league_params)
-   
-      if league.save
-        render json: league
-      else
-        render json: league.errors, status: :unprocessable_entity
-      end
+    if league.save
+      render json: league
+    else
+      render json: league.errors, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /leagues/1
   # PATCH/PUT /leagues/1.json
   def update
-      if league.update(league_params)
-        render json: league
-      else
-        render json: league.errors, status: :unprocessable_entity
-      end
+    if @league.update(league_params)
+      render json: @league
+    else
+      render json: @league.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /leagues/1
   # DELETE /leagues/1.json
   def destroy
-    @league.destroy
-    respond_to do |format|
-      format.html { redirect_to leagues_url, notice: 'League was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @league.destroy   
+    format.json
   end
 
   private
