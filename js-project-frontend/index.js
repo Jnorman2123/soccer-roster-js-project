@@ -107,23 +107,23 @@ function createNewLeague() {
     .then(response => {
         return response.json()
     })
-    .then(leagueData => {
-        console.log(leagueData) 
-        fetchLeagues()
+    .then(() => {
+        clearForm()
+        fetchLeagues()   
     })
 }
 
 function editLeague() {
     event.preventDefault()
     const league = {
-        name: document.getElementById('name').value,
-        logo: document.getElementById('logo').value,
-        country: document.getElementById('country').value,
-        division: document.getElementById('division').value
+        name: document.getElementById('league_name').value,
+        logo: document.getElementById('league_logo').value,
+        country: document.getElementById('league_country').value,
+        division: document.getElementById('league_division').value
     }
 
     fetch(leaguesUrl, {
-        method: 'POST',
+        method: 'PATCH',
         body: JSON.stringify(league),
         headers: {
             'Content-Type': 'application/json',
@@ -133,8 +133,13 @@ function editLeague() {
     .then(response => {
         return response.json()
     })
-    .then(leagueData => {
-        console.log(leagueData) 
-        fetchLeagues()
+    .then(() => {
+        clearForm()
+        fetchLeagues()   
     })
+}
+
+function clearForm() {
+    let form = document.querySelector('form')
+    form.remove()
 }
