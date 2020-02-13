@@ -1,22 +1,25 @@
 const leaguesUrl = 'http://localhost:3000/leagues'
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    createNewLeagueButton()
-    
+document.addEventListener('DOMContentLoaded', () => { 
 
-    fetchLeagues()
-    
+    fetchLeagues()  
     
 })
 
 
 function fetchLeagues() {
+    createNewLeagueButton()
     fetch(leaguesUrl)
         .then(response => response.json())
         .then((leagueData) => {
             return renderAllLeagues(leagueData)
         })
+        
+}
+
+function fetchLeague() {
+
 }
 
 function renderLeague(league) {
@@ -35,6 +38,9 @@ function renderLeague(league) {
     leagueLogo.src = `${league.logo}`
     leagueCountry.innerText = league.country
     leagueDivision.innerText = league.division + ' division'
+    leagueName.addEventListener('click', () => {
+        console.log('hello')
+    })
 }
 
 function renderAllLeagues(leagues) {
@@ -48,19 +54,14 @@ function createNewLeagueButton() {
     const docBody = document.querySelector('body') 
     docBody.appendChild(newLeagueButton)
     newLeagueButton.innerText = 'Add a New League'
-    newLeagueButton.addEventListener('click', () => {
-        createNewLeagueForm()
-    })
+    newLeagueButton.addEventListener('click', createNewLeagueForm)
 }
 
 function createEditLeagueButton() {
-    const editLeagueButton = document.createElement('button')
-    const docBody = document.querySelector('body') 
+    const editLeagueButton = document.createElement('button') 
     docBody.appendChild(editLeagueButton)
     editLeagueButton.innerText = 'Edit League'
-    editLeagueButton.addEventListener('click', () => {
-        createEditLeagueForm()
-    })
+    editLeagueButton.addEventListener('click', createEditLeagueForm)
 }
 
 function createNewLeagueForm() {
