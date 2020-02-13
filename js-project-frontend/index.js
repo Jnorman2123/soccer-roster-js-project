@@ -86,3 +86,24 @@ function createNewLeagueForm() {
     newLeagueSubmit.setAttribute('value', 'Add a new League')
 }
 
+function createNewLeague() {
+    const league = {
+        name: document.getElementById('name').value,
+        logo: document.getElementById('logo').value,
+        country: document.getElementById('country').value,
+        division: document.getElementById('division').value
+    }
+
+    fetch(leaguesUrl, {
+        method: 'POST',
+        body: JSON.stringify(league),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json)
+    .then(league => {
+        renderLeague(league)
+    })
+}
