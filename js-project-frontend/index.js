@@ -1,21 +1,13 @@
 const leaguesUrl = 'http://localhost:3000/leagues'
-const newLeagueButton = document.createElement('button')
-const newLeagueForm = document.createElement('form')
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    newLeagueButton.addEventListener('click', () => {
-        createNewLeagueForm()
-    })
-
-    newLeagueForm.addEventListener('submit', (e) => {
-        e.preventDefault()
-        console.log("testing")
-        createNewLeague()
-    })
+    createNewLeagueButton()
+    
 
     fetchLeagues()
     
-    createNewLeagueButton()
+    
 })
 
 
@@ -52,31 +44,38 @@ function renderAllLeagues(leagues) {
 }
 
 function createNewLeagueButton() {
+    const newLeagueButton = document.createElement('button')
     const docBody = document.querySelector('body') 
     docBody.appendChild(newLeagueButton)
     newLeagueButton.innerText = 'Add a New League'
+    newLeagueButton.addEventListener('click', () => {
+        createNewLeagueForm()
+    })
 }
 
 function createNewLeagueForm() {
+    const newLeagueForm = document.createElement('form')
+
     const docBody = document.querySelector('body')
     
     
     let html = `
         <form onsubmit="createNewLeague; return false;">
         <label>Name: </label>
-        <input type="text" id="league_name"><br>
+        <input type="text" id="name"><br>
         <label>Logo: </label>
-        <input type="text" id="league_logo"><br>
+        <input type="text" id="logo"><br>
         <label>Country: </label>
-        <input type="text" id="league_country"><br>
+        <input type="text" id="country"><br>
         <label>Division: </label>
-        <input type="text" id="league_division"><br>
+        <input type="text" id="division"><br>
         <input type="submit" value="Add a new League">
     `
     
     docBody.innerHTML = ''
     newLeagueForm.innerHTML = html
     docBody.appendChild(newLeagueForm)
+    newLeagueForm.addEventListener('submit', createNewLeague)
     // const nameLabel = document.createElement('label')
     // const nameInput = document.createElement('input')
     // const logoLabel = document.createElement('label')
@@ -113,11 +112,12 @@ function createNewLeagueForm() {
 }
 
 function createNewLeague() {
+    event.preventDefault()
     const league = {
-        name: document.getElementById('league_name').value,
-        logo: document.getElementById('league_logo').value,
-        country: document.getElementById('league_country').value,
-        division: document.getElementById('league_division').value
+        name: document.getElementById('name').value,
+        logo: document.getElementById('logo').value,
+        country: document.getElementById('country').value,
+        division: document.getElementById('division').value
     }
 
     fetch(leaguesUrl, {
@@ -128,9 +128,11 @@ function createNewLeague() {
             'Accept': 'application/json'
         }
     })
-    .then(response => response.json)
-    .then(league => {
-        console.log(league) 
+    .then(response => {
+        return response.json()
+    })
+    .then(l => {
+        console.log("hello") 
         fetchLeagues()
     })
 }

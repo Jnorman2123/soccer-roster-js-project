@@ -26,29 +26,22 @@ class LeaguesController < ApplicationController
   # POST /leagues
   # POST /leagues.json
   def create
-    @league = League.new(league_params)
-
-    respond_to do |format|
-      if @league.save
-        format.html { redirect_to @league, notice: 'League was successfully created.' }
-        format.json { render :show, status: :created, location: @league }
+    league = League.new(league_params)
+   
+      if league.save
+        render json: league
       else
-        format.html { render :new }
-        format.json { render json: @league.errors, status: :unprocessable_entity }
+        render json: league.errors, status: :unprocessable_entity
       end
-    end
   end
 
   # PATCH/PUT /leagues/1
   # PATCH/PUT /leagues/1.json
   def update
-    respond_to do |format|
-      if @league.update(league_params)
-        format.html { redirect_to @league, notice: 'League was successfully updated.' }
-        format.json { render :show, status: :ok, location: @league }
+      if league.update(league_params)
+        render json: league
       else
-        format.html { render :edit }
-        format.json { render json: @league.errors, status: :unprocessable_entity }
+        render json: league.errors, status: :unprocessable_entity
       end
     end
   end
@@ -71,6 +64,6 @@ class LeaguesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def league_params
-      params.require(:league).permit(:id, :name, :logo, :country, :division)
+      params.require(:league).permit(:name, :logo, :country, :division)
     end
 end
