@@ -4,6 +4,7 @@ const teamsUrl = 'http://localhost:3000/teams'
 
 document.addEventListener('DOMContentLoaded', () => { 
     createLeaguesButton()
+    createTeamsButton()
     fetchLeagues()  
 })
 
@@ -25,7 +26,6 @@ function fetchLeagues() {
     const docMain = document.querySelector('#main')
     docMain.innerHTML = ''
     createNewLeagueButton()
-    createTeamsButton()
     fetch(leaguesUrl)
         .then(response => response.json())
         .then((leagueData) => {
@@ -107,7 +107,7 @@ function createEditLeagueButton(league) {
 function createDeleteLeagueButton(league) {
     const deletedLeague = new League(league.id, league.name, league.logo, league.country, league.divsion)
     const deleteLeagueButton = document.createElement('button') 
-    const docMain = document.querySelector('#main') 
+    const docMain = document.querySelector('#Main') 
     docMain.appendChild(deleteLeagueButton) 
     deleteLeagueButton.innerText = 'Delete League' 
     deleteLeagueButton.addEventListener('click', () => {
@@ -117,8 +117,8 @@ function createDeleteLeagueButton(league) {
 
 function createTeamsButton() {
     const teamsButton = document.createElement('button')
-    const docMain = document.querySelector('#main') 
-    docMain.prepend(teamsButton)
+    const docNav = document.querySelector('#nav') 
+    docNav.prepend(teamsButton)
     teamsButton.innerText = 'Teams Page'
     teamsButton.addEventListener('click', () => {
         fetchTeams()
