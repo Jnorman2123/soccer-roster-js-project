@@ -59,6 +59,7 @@ function fetchTeam(team) {
             // createTeamsButton()
             const theTeam = new Team(teamData.id, teamData.name, teamData.logo, teamData.nickname, teamData.stadium, teamData.manager, teamData.year_founded)
             theTeam.renderTeam()
+            createTeamLeagueButton(teamData)
         })
 }
 
@@ -114,13 +115,14 @@ function createLeagueTeamsButton(league) {
     })
 }
 
-function createTeamLeagueButton(league) {
+function createTeamLeagueButton(team) {
     const teamLeagueButton = document.createElement('button')
     const docBody = document.querySelector('body')
     docBody.appendChild(teamLeagueButton)
-    teamLeagueButton.innerText = `Return to ${league.name}`
+    teamLeagueButton.innerText = `Return to League`
+    const teamLeague = new League(team.league_id, '', '', '', '')
     teamLeagueButton.addEventListener('click', () => {
-        fetchLeague(league)
+        fetchLeague(teamLeague)
     })
 }
 
