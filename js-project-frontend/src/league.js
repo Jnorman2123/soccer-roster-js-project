@@ -42,13 +42,14 @@ class League {
         })
     }
 
-    createNewLeague() {
+    static createNewLeague() {
         event.preventDefault()
+        const leagueID = ''
         const leagueName = document.getElementById('league_name').value
         const leagueLogo = document.getElementById('league_logo').value
         const leagueCountry = document.getElementById('league_country').value
         const leagueDivision = document.getElementById('league_division').value
-        const league = new League(leagueName, leagueLogo, leagueCountry, leagueDivision)
+        const league = new League(leagueID, leagueName, leagueLogo, leagueCountry, leagueDivision)
     
         fetch(leaguesUrl, {
             method: 'POST',

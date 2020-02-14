@@ -50,7 +50,7 @@ function createEditLeagueButton(league) {
 }
 
 function createDeleteLeagueButton(league) {
-    deletedLeague = new League(league.id, league.name, league.logo, league.country, league.divsion)
+    const deletedLeague = new League(league.id, league.name, league.logo, league.country, league.divsion)
     const deleteLeagueButton = document.createElement('button') 
     const docBody = document.querySelector('body') 
     docBody.appendChild(deleteLeagueButton) 
@@ -83,12 +83,10 @@ function createNewLeagueForm() {
     newLeagueForm.innerHTML = html
     docBody.prepend(newLeagueForm)
     newLeagueForm.addEventListener('submit', () => {
-        createNewLeague()
+        League.createNewLeague()
     })
     
 }
-
-
 
 function editLeague(league) {
     
