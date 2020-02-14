@@ -15,7 +15,7 @@ function fetchLeague(league) {
             createEditLeagueButton(leagueData)
             createDeleteLeagueButton(leagueData)
             createLeaguesButton()
-            const theLeague = new League(league.id, league.name, league.logo, league.country, league.division)
+            const theLeague = new League(leagueData.id, leagueData.name, leagueData.logo, leagueData.country, leagueData.division)
             theLeague.renderLeague()
             createLeagueTeamsButton(league)
         })
@@ -47,6 +47,21 @@ function fetchTeams(league) {
             })
         })
 }
+
+function fetchTeam(team) {
+    fetch(teamsUrl + `/${team.id}`)
+        .then(response => response.json())
+        .then(teamData => {
+            const docBody = document.querySelector('body')
+            docBody.innerHTML = ''
+            // createEditTeamButton(teamData)
+            // createDeleteTeamButton(teamData)
+            // createTeamsButton()
+            const theTeam = new Team(teamData.id, teamData.name, teamData.logo, teamData.nickname, teamData.stadium, teamData.manager, teamData.year_founded)
+            theTeam.renderTeam()
+        })
+}
+
 function createLeaguesButton() {
     const leaguesButton = document.createElement('button')
     const docBody = document.querySelector('body') 
@@ -127,11 +142,6 @@ function createNewLeagueForm() {
     
 }
 
-function clearForm() {
-    let form = document.querySelector('form')
-    form.remove()
-}
-
 function createEditLeagueForm(league) {
     const editLeagueForm = document.createElement('form')
     const docBody = document.querySelector('body')
@@ -157,4 +167,9 @@ function createEditLeagueForm(league) {
     editLeagueForm.addEventListener('submit', () => {
         editedLeague.editLeague()
     })    
+}
+
+function clearForm() {
+    let form = document.querySelector('form')
+    form.remove()
 }
