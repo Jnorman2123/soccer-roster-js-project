@@ -88,7 +88,8 @@ function createLeaguesButton() {
 
 function createNewLeagueButton() {
     const newLeagueButton = document.createElement('button')
-    const docMain = document.querySelector('#main') 
+    const docMain = document.querySelector('#main')
+    newLeagueButton.setAttribute('id', 'new-league') 
     docMain.prepend(newLeagueButton)
     newLeagueButton.innerText = 'Add a New League'
     newLeagueButton.addEventListener('click', () => {
@@ -152,6 +153,7 @@ function createTeamLeagueButton(team) {
 function createNewTeamButton() {
     const newTeamButton = document.createElement('button')
     const docMain = document.querySelector('#main') 
+    newTeamButton.setAttribute('id', 'new-team')
     docMain.prepend(newTeamButton)
     newTeamButton.innerText = 'Add a New Team'
     newTeamButton.addEventListener('click', () => {
@@ -172,7 +174,7 @@ function createEditTeamButton(team) {
 function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
     const docMain = document.querySelector('#main')
-    const newLeagueButton = document.querySelector('button')
+    const newLeagueButton = document.querySelector('#new-league')
     
     let html = `
         <form onsubmit="createNewLeague; return false;">
@@ -220,6 +222,36 @@ function createEditLeagueForm(league) {
     editLeagueForm.addEventListener('submit', () => {
         editedLeague.editLeague()
     })    
+}
+
+function createNewTeamForm() {
+    const newTeamForm = document.createElement('form')
+    const docMain = document.querySelector('#main')
+    const newTeamButton = document.querySelector('#new-team')
+    
+    let html = `
+        <form onsubmit="createNewTeam; return false;">
+        <label>Team Name: </label>
+        <input type="text" id="team_name"><br>
+        <label>Team Logo: </label>
+        <input type="text" id="team_logo"><br>
+        <label>Team Nickname: </label>
+        <input type="text" id="team_nickname"><br>
+        <label>Team Stadium: </label>
+        <input type="text" id="team_stadium"><br>
+        <label>Team Manager: </label>
+        <input type="text" id="team_manager"><br>
+        <label>Year Team Founded: </label>
+        <input type="text" id="team_year_founded"><br>
+        <input type="submit" value="Add a new Team">
+    `
+    newTeamButton.remove()
+    newTeamForm.innerHTML = html
+    docMain.prepend(newTeamForm)
+    newTeamForm.addEventListener('submit', () => {
+        Team.createNewTeam()
+    })
+    
 }
 
 function clearForm() {

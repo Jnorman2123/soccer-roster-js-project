@@ -51,6 +51,34 @@ class Team {
         })
     }
 
+    static createNewTeam() {
+        event.preventDefault()
+        const teamID = ''
+        const teamName = document.getElementById('team_name').value
+        const teamLogo = document.getElementById('team_logo').value
+        const teamNickname = document.getElementById('team_nickname').value
+        const teamStadium = document.getElementById('team_stadium').value
+        const teamManager = document.getElementById('team_manager').value
+        const teamYearFounded = document.getElementById('team_year_founded').value
+        const team = new Team(teamID, teamName, teamLogo, teamNickname, teamStadium, teamManager, teamYearFounded)
+    
+        fetch(teamsUrl, {
+            method: 'POST',
+            body: JSON.stringify(team),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(() => {
+            clearForm()
+            fetchTeams()   
+        })
+    }
+
     editTeam() {
         const teamID = ''
         const teamName = document.getElementById('team_name').value
