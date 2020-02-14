@@ -27,9 +27,9 @@ class League {
         leagueCard.appendChild(leagueCountry)
         leagueCard.appendChild(leagueDivision)
         leagueName.innerText = this.name
-        leagueLogo.src = `${this.logo}`
+        leagueLogo.src = this.logo
         leagueCountry.innerText = this.country
-        leagueDivision.innerText = this.division + ' division'
+        leagueDivision.innerText = this.division
         leagueName.addEventListener('click', () => {
             fetchLeague(this)
         })

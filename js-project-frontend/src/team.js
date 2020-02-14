@@ -34,11 +34,11 @@ class Team {
         teamCard.appendChild(teamManager)
         teamCard.appendChild(teamYearFounded)
         teamName.innerText = this.name
-        teamLogo.src = `${this.logo}`
+        teamLogo.src = this.logo
         teamNickname.innerText = this.nickname
         teamStadium.innerText = this.stadium
         teamManager.innerText = this.manager 
-        teamYearFounded.innerText = 'Team founded in ' + this.year_founded
+        teamYearFounded.innerText = this.year_founded
         teamName.addEventListener('click', () => {
             fetchTeam(this)
         })
