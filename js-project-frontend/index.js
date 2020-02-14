@@ -114,6 +114,16 @@ function createLeagueTeamsButton(league) {
     })
 }
 
+function createTeamLeagueButton(league) {
+    const teamLeagueButton = document.createElement('button')
+    const docBody = document.querySelector('body')
+    docBody.appendChild(teamLeagueButton)
+    teamLeagueButton.innerText = `Return to ${league.name}`
+    teamLeagueButton.addEventListener('click', () => {
+        fetchLeague(league)
+    })
+}
+
 
 
 function createNewLeagueForm() {
