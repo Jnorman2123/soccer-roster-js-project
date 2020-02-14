@@ -42,5 +42,13 @@ class League {
         })
     }
 
+    deleteLeague() {
+        return fetch(leaguesUrl + `/${this.id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(fetchLeagues)
+    }
+
     
 }

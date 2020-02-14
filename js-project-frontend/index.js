@@ -51,23 +51,18 @@ function createEditLeagueButton(league) {
 }
 
 function createDeleteLeagueButton(league) {
+    deletedLeague = new League(league.id, league.name, league.logo, league.country, league.divsion)
     const deleteLeagueButton = document.createElement('button') 
     const docBody = document.querySelector('body') 
     docBody.appendChild(deleteLeagueButton) 
     deleteLeagueButton.innerText = 'Delete League' 
     deleteLeagueButton.addEventListener('click', () => {
-        deleteLeague(league)
+        deletedLeague.deleteLeague()
     })
 }
 
 
-function deleteLeague(league) {
-    return fetch(leaguesUrl + `/${league.id}`, {
-        method: 'DELETE'
-    })
-    .then(response => response.json())
-    .then(fetchLeagues)
-}
+
 function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
     const docBody = document.querySelector('body')
