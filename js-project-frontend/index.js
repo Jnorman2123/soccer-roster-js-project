@@ -47,6 +47,16 @@ function createEditLeagueButton(league) {
     })
 }
 
+function createDeleteLeagueButton(league) {
+    const deleteLeagueButton = document.createElement('button') 
+    const docBody = document.querySelector('body') 
+    docBody.appendChild(deleteLeagueButton) 
+    deleteLeagueButton.innerText = 'Delete League' 
+    deleteLeagueButton.addEventListener('click', () => {
+        deleteLeague(league)
+    })
+}
+
 function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
     const docBody = document.querySelector('body')
