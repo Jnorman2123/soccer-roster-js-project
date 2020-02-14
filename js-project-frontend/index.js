@@ -2,7 +2,7 @@ const leaguesUrl = 'http://localhost:3000/leagues'
 const teamsUrl = 'http://localhost:3000/teams'
 
 document.addEventListener('DOMContentLoaded', () => { 
-
+    createLeaguesButton()
     fetchLeagues()  
 })
 
@@ -14,7 +14,6 @@ function fetchLeague(league) {
             docBody.innerHTML = ''
             createEditLeagueButton(leagueData)
             createDeleteLeagueButton(leagueData)
-            createLeaguesButton()
             const theLeague = new League(leagueData.id, leagueData.name, leagueData.logo, leagueData.country, leagueData.division)
             theLeague.renderLeague()
             createLeagueTeamsButton(league)
@@ -25,6 +24,7 @@ function fetchLeagues() {
     docBody = document.querySelector('body')
     docBody.innerHTML = ''
     createNewLeagueButton()
+    createTeamsButton()
     fetch(leaguesUrl)
         .then(response => response.json())
         .then((leagueData) => {
@@ -33,6 +33,8 @@ function fetchLeagues() {
 }
 
 function fetchTeams() {
+    const docBody = document.querySelector('body')
+    docBody.innerHTML = ''
     fetch(teamsUrl)
         .then(response => response.json())
         .then((teamData) => {
@@ -73,8 +75,8 @@ function fetchTeam(team) {
 
 function createLeaguesButton() {
     const leaguesButton = document.createElement('button')
-    const docBody = document.querySelector('body') 
-    docBody.prepend(leaguesButton)
+    const navBar = document.querySelector('#nav') 
+    navBar.prepend(leaguesButton)
     leaguesButton.innerText = 'Leagues Page'
     leaguesButton.addEventListener('click', () => {
         fetchLeagues()
@@ -112,6 +114,15 @@ function createDeleteLeagueButton(league) {
     })
 }
 
+function createTeamsButton() {
+    const teamsButton = document.createElement('button')
+    const docBody = document.querySelector('body') 
+    docBody.prepend(teamsButton)
+    teamsButton.innerText = 'Teams Page'
+    teamsButton.addEventListener('click', () => {
+        fetchTeams()
+    })
+}
 
 function createLeagueTeamsButton(league) {
     const leagueTeamsButton = document.createElement('button') 
