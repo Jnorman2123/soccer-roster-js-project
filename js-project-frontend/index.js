@@ -32,7 +32,15 @@ function fetchLeagues() {
         })    
 }
 
-function fetchTeams(league) {
+function fetchTeams() {
+    fetch(teamsUrl)
+        .then(response => response.json())
+        .then((teamData) => {
+            Team.renderAllTeams(teamData)
+        })
+}
+
+function fetchLeagueTeams(league) {
     const docBody = document.querySelector('body')
     const leagueTeamsButton = document.querySelector('#league-teams-button')
     docBody.removeChild(leagueTeamsButton)
@@ -58,8 +66,8 @@ function fetchTeam(team) {
             // createDeleteTeamButton(teamData)
             // createTeamsButton()
             const theTeam = new Team(teamData.id, teamData.name, teamData.logo, teamData.nickname, teamData.stadium, teamData.manager, teamData.year_founded)
-            theTeam.renderTeam()
             createTeamLeagueButton(teamData)
+            theTeam.renderTeam()
         })
 }
 
@@ -104,6 +112,7 @@ function createDeleteLeagueButton(league) {
     })
 }
 
+
 function createLeagueTeamsButton(league) {
     const leagueTeamsButton = document.createElement('button') 
     const docBody = document.querySelector('body')
@@ -111,7 +120,7 @@ function createLeagueTeamsButton(league) {
     docBody.appendChild(leagueTeamsButton) 
     leagueTeamsButton.innerText = 'Show Teams in This League'
     leagueTeamsButton.addEventListener('click', () => {
-        fetchTeams(league)
+        fetchLeagueTeams(league)
     })
 }
 
@@ -126,7 +135,7 @@ function createTeamLeagueButton(team) {
     })
 }
 
-
+// function createNewLeagueButton()
 
 function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
