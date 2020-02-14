@@ -17,7 +17,7 @@ function fetchLeague(league) {
             createLeaguesButton()
             const theLeague = new League(league.id, league.name, league.logo, league.country, league.division)
             theLeague.renderLeague()
-            fetchTeams()
+            fetchTeams(league)
         })
 }
 
@@ -32,11 +32,16 @@ function fetchLeagues() {
         })    
 }
 
-function fetchTeams() {
+function fetchTeams(league) {
     fetch(teamsUrl)
         .then(response => response.json())
         .then((teamData) => {
-            Team.renderAllTeams(teamData)
+            return teamData.map(team => {
+                if (league.id === team.league_id) {
+                    const theTeam = new Team(team.id, team.name, team.logo, team.nickname, team.stadium, team.manager, team.year_founded)
+                    theTeam.renderTeam()
+                }
+            })
         })
 }
 function createLeaguesButton() {
