@@ -1,14 +1,10 @@
 
-
-
-
-
 function fetchLeague(league) {
     fetch(leaguesUrl + `/${league.id}`)
         .then(response => response.json())
         .then(leagueData => {
             document.querySelector('body').innerHTML = ''
-            createEditLeagueButton(league)
+            createEditLeagueButton(leagueData)
             return renderLeague(leagueData)
         })
 }
@@ -20,7 +16,7 @@ function fetchLeague(league) {
 function createNewLeagueButton() {
     const newLeagueButton = document.createElement('button')
     const docBody = document.querySelector('body') 
-    docBody.appendChild(newLeagueButton)
+    docBody.prepend(newLeagueButton)
     newLeagueButton.innerText = 'Add a New League'
     newLeagueButton.addEventListener('click', createNewLeagueForm)
 }
