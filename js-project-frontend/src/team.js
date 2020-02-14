@@ -26,7 +26,7 @@ class Team {
         teamStadium.setAttribute('id', 'team_stadium')
         teamManager.setAttribute('id', 'team_manager')
         teamYearFounded.setAttribute('id', 'team_year_founded')
-        docBody.appendChild(leagueCard)
+        docBody.appendChild(teamCard)
         teamCard.appendChild(teamName)
         teamCard.appendChild(teamLogo)
         teamCard.appendChild(teamNickname)
