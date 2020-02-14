@@ -1,24 +1,40 @@
+const leaguesUrl = 'http://localhost:3000/leagues'
+
+document.addEventListener('DOMContentLoaded', () => { 
+
+    fetchLeagues()  
+})
+
+
+function fetchLeagues() {
+    createNewLeagueButton()
+    fetch(leaguesUrl)
+        .then(response => response.json())
+        .then((leagueData) => {
+            League.renderAllLeagues(leagueData)
+        })    
+}
 
 function fetchLeague(league) {
     fetch(leaguesUrl + `/${league.id}`)
         .then(response => response.json())
         .then(leagueData => {
-            document.querySelector('body').innerHTML = ''
+            const docBody = document.querySelector('body')
+            docBody.innerHTML = ''
             createEditLeagueButton(leagueData)
-            return renderLeague(leagueData)
+            const theLeague = new League(league.id, league.name, league.logo, league.country, league.division)
+            theLeague.renderLeague()
         })
 }
-
-
-
-
 
 function createNewLeagueButton() {
     const newLeagueButton = document.createElement('button')
     const docBody = document.querySelector('body') 
     docBody.prepend(newLeagueButton)
     newLeagueButton.innerText = 'Add a New League'
-    newLeagueButton.addEventListener('click', createNewLeagueForm)
+    newLeagueButton.addEventListener('click', () => {
+        createNewLeagueForm()
+    })
 }
 
 function createEditLeagueButton(league) {
@@ -26,7 +42,9 @@ function createEditLeagueButton(league) {
     const docBody = document.querySelector('body')
     docBody.appendChild(editLeagueButton)
     editLeagueButton.innerText = 'Edit League'
-    editLeagueButton.addEventListener('click', createEditLeagueForm(league))
+    editLeagueButton.addEventListener('click', () => {
+        createEditLeagueForm(league)
+    })
 }
 
 function createNewLeagueForm() {
@@ -49,7 +67,9 @@ function createNewLeagueForm() {
     docBody.innerHTML = ''
     newLeagueForm.innerHTML = html
     docBody.appendChild(newLeagueForm)
-    newLeagueForm.addEventListener('submit', createNewLeague)
+    newLeagueForm.addEventListener('submit', () => {
+        createNewLeague()
+    })
     
 }
 
@@ -123,6 +143,5 @@ function createEditLeagueForm(league) {
     docBody.innerHTML = ''
     editLeagueForm.innerHTML = html
     docBody.appendChild(editLeagueForm)
-    editLeagueForm.addEventListener('submit', editLeague(league))
-    
+    editLeagueForm.addEventListener('submit', editLeague(league))    
 }

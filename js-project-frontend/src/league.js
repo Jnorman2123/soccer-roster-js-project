@@ -1,26 +1,8 @@
-const leaguesUrl = 'http://localhost:3000/leagues'
 
-document.addEventListener('DOMContentLoaded', () => { 
-
-    fetchLeagues()  
-})
-
-
-function fetchLeagues() {
-    createNewLeagueButton()
-    fetch(leaguesUrl)
-        .then(response => response.json())
-        .then((leagueData) => {
-            return leagueData.map(league => {
-                const newLeague = new League(league.name, league.logo, league.country, league.division)
-                newLeague.renderLeague()
-            })
-        })
-        
-}
 
 class League {
-    constructor(name, logo, country, division) {
+    constructor(id, name, logo, country, division) {
+        this.id = id;
         this.name = name;
         this.logo = logo; 
         this.country = country;
@@ -52,4 +34,13 @@ class League {
             fetchLeague(this)
         })
     }
+
+    static renderAllLeagues(leagues) {
+        return leagues.map(league => {
+            const newLeague = new League(league.id, league.name, league.logo, league.country, league.division)
+            newLeague.renderLeague()
+        })
+    }
+
+    
 }
