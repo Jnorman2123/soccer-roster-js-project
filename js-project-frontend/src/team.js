@@ -11,7 +11,7 @@ class Team {
     }
 
     renderTeam() {
-        const docBody = document.querySelector('body')
+        const docMain = document.querySelector('#main')
         const teamCard = document.createElement('div')
         const teamName = document.createElement('h2')
         const teamLogo = document.createElement('img')
@@ -26,7 +26,7 @@ class Team {
         teamStadium.setAttribute('id', 'team_stadium')
         teamManager.setAttribute('id', 'team_manager')
         teamYearFounded.setAttribute('id', 'team_year_founded')
-        docBody.appendChild(teamCard)
+        docMain.appendChild(teamCard)
         teamCard.appendChild(teamName)
         teamCard.appendChild(teamLogo)
         teamCard.appendChild(teamNickname)

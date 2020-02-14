@@ -1,6 +1,7 @@
 const leaguesUrl = 'http://localhost:3000/leagues'
 const teamsUrl = 'http://localhost:3000/teams'
 
+
 document.addEventListener('DOMContentLoaded', () => { 
     createLeaguesButton()
     fetchLeagues()  
@@ -10,8 +11,8 @@ function fetchLeague(league) {
     fetch(leaguesUrl + `/${league.id}`)
         .then(response => response.json())
         .then(leagueData => {
-            const docBody = document.querySelector('body')
-            docBody.innerHTML = ''
+            const docMain = document.querySelector('#main')
+            docMain.innerHTML = ''
             createEditLeagueButton(leagueData)
             createDeleteLeagueButton(leagueData)
             const theLeague = new League(leagueData.id, leagueData.name, leagueData.logo, leagueData.country, leagueData.division)
@@ -21,8 +22,8 @@ function fetchLeague(league) {
 }
 
 function fetchLeagues() {
-    docBody = document.querySelector('body')
-    docBody.innerHTML = ''
+    const docMain = document.querySelector('#main')
+    docMain.innerHTML = ''
     createNewLeagueButton()
     createTeamsButton()
     fetch(leaguesUrl)
@@ -33,8 +34,8 @@ function fetchLeagues() {
 }
 
 function fetchTeams() {
-    const docBody = document.querySelector('body')
-    docBody.innerHTML = ''
+    const docMain = document.querySelector('#main')
+    docMain.innerHTML = ''
     fetch(teamsUrl)
         .then(response => response.json())
         .then((teamData) => {
@@ -43,9 +44,9 @@ function fetchTeams() {
 }
 
 function fetchLeagueTeams(league) {
-    const docBody = document.querySelector('body')
+    const docMain = document.querySelector('#main')
     const leagueTeamsButton = document.querySelector('#league-teams-button')
-    docBody.removeChild(leagueTeamsButton)
+    docMain.removeChild(leagueTeamsButton)
     fetch(teamsUrl)
         .then(response => response.json())
         .then((teamData) => {
@@ -62,8 +63,8 @@ function fetchTeam(team) {
     fetch(teamsUrl + `/${team.id}`)
         .then(response => response.json())
         .then(teamData => {
-            const docBody = document.querySelector('body')
-            docBody.innerHTML = ''
+            const docMain = document.querySelector('#main')
+            docMain.innerHTML = ''
             // createEditTeamButton(teamData)
             // createDeleteTeamButton(teamData)
             // createTeamsButton()
@@ -85,8 +86,8 @@ function createLeaguesButton() {
 
 function createNewLeagueButton() {
     const newLeagueButton = document.createElement('button')
-    const docBody = document.querySelector('body') 
-    docBody.prepend(newLeagueButton)
+    const docMain = document.querySelector('#main') 
+    docMain.prepend(newLeagueButton)
     newLeagueButton.innerText = 'Add a New League'
     newLeagueButton.addEventListener('click', () => {
         createNewLeagueForm()
@@ -95,8 +96,8 @@ function createNewLeagueButton() {
 
 function createEditLeagueButton(league) {
     const editLeagueButton = document.createElement('button') 
-    const docBody = document.querySelector('body')
-    docBody.appendChild(editLeagueButton)
+    const docMain = document.querySelector('#main')
+    docMain.appendChild(editLeagueButton)
     editLeagueButton.innerText = 'Edit League'
     editLeagueButton.addEventListener('click', () => {
         createEditLeagueForm(league)
@@ -106,8 +107,8 @@ function createEditLeagueButton(league) {
 function createDeleteLeagueButton(league) {
     const deletedLeague = new League(league.id, league.name, league.logo, league.country, league.divsion)
     const deleteLeagueButton = document.createElement('button') 
-    const docBody = document.querySelector('body') 
-    docBody.appendChild(deleteLeagueButton) 
+    const docMain = document.querySelector('#main') 
+    docMain.appendChild(deleteLeagueButton) 
     deleteLeagueButton.innerText = 'Delete League' 
     deleteLeagueButton.addEventListener('click', () => {
         deletedLeague.deleteLeague()
@@ -116,8 +117,8 @@ function createDeleteLeagueButton(league) {
 
 function createTeamsButton() {
     const teamsButton = document.createElement('button')
-    const docBody = document.querySelector('body') 
-    docBody.prepend(teamsButton)
+    const docMain = document.querySelector('#main') 
+    docMain.prepend(teamsButton)
     teamsButton.innerText = 'Teams Page'
     teamsButton.addEventListener('click', () => {
         fetchTeams()
@@ -126,9 +127,9 @@ function createTeamsButton() {
 
 function createLeagueTeamsButton(league) {
     const leagueTeamsButton = document.createElement('button') 
-    const docBody = document.querySelector('body')
+    const docMain = document.querySelector('#main')
     leagueTeamsButton.setAttribute('id', 'league-teams-button')
-    docBody.appendChild(leagueTeamsButton) 
+    docMain.appendChild(leagueTeamsButton) 
     leagueTeamsButton.innerText = 'Show Teams in This League'
     leagueTeamsButton.addEventListener('click', () => {
         fetchLeagueTeams(league)
@@ -137,8 +138,8 @@ function createLeagueTeamsButton(league) {
 
 function createTeamLeagueButton(team) {
     const teamLeagueButton = document.createElement('button')
-    const docBody = document.querySelector('body')
-    docBody.appendChild(teamLeagueButton)
+    const docMain = document.querySelector('#main')
+    docMain.appendChild(teamLeagueButton)
     teamLeagueButton.innerText = `Return to League`
     const teamLeague = new League(team.league_id, '', '', '', '')
     teamLeagueButton.addEventListener('click', () => {
@@ -150,7 +151,7 @@ function createTeamLeagueButton(team) {
 
 function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
-    const docBody = document.querySelector('body')
+    const docMain = document.querySelector('#main')
     const newLeagueButton = document.querySelector('button')
     
     let html = `
@@ -167,7 +168,7 @@ function createNewLeagueForm() {
     `
     newLeagueButton.remove()
     newLeagueForm.innerHTML = html
-    docBody.prepend(newLeagueForm)
+    docMain.prepend(newLeagueForm)
     newLeagueForm.addEventListener('submit', () => {
         League.createNewLeague()
     })
@@ -176,7 +177,7 @@ function createNewLeagueForm() {
 
 function createEditLeagueForm(league) {
     const editLeagueForm = document.createElement('form')
-    const docBody = document.querySelector('body')
+    const docMain = document.querySelector('#main')
     const editedLeague = new League(league.id, league.name, league.logo, league.country, league.division)
     
     let html = `
@@ -192,9 +193,9 @@ function createEditLeagueForm(league) {
         <input type="submit" value="Edit League">
     `
     
-    docBody.innerHTML = ''
+    docMain.innerHTML = ''
     editLeagueForm.innerHTML = html
-    docBody.append(editLeagueForm)
+    docMain.append(editLeagueForm)
     editedLeague.renderLeague()
     editLeagueForm.addEventListener('submit', () => {
         editedLeague.editLeague()

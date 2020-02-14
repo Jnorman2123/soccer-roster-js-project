@@ -10,7 +10,7 @@ class League {
     }
 
     renderLeague() {
-        const docBody = document.querySelector('body')
+        const docMain = document.querySelector('#main')
         const leagueCard = document.createElement('div')
         const leagueName = document.createElement('h1')
         const leagueLogo = document.createElement('img')
@@ -21,7 +21,7 @@ class League {
         leagueLogo.setAttribute('id', 'league_logo')
         leagueCountry.setAttribute('id', 'league_country')
         leagueDivision.setAttribute('id', 'league_division')
-        docBody.appendChild(leagueCard)
+        docMain.appendChild(leagueCard)
         leagueCard.appendChild(leagueName)
         leagueCard.appendChild(leagueLogo)
         leagueCard.appendChild(leagueCountry)
