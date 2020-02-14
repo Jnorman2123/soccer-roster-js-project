@@ -17,7 +17,7 @@ function fetchLeague(league) {
             createLeaguesButton()
             const theLeague = new League(league.id, league.name, league.logo, league.country, league.division)
             theLeague.renderLeague()
-            fetchTeams(league)
+            createLeagueTeamsButton(league)
         })
 }
 
@@ -33,6 +33,9 @@ function fetchLeagues() {
 }
 
 function fetchTeams(league) {
+    const docBody = document.querySelector('body')
+    const leagueTeamsButton = document.querySelector('#league-teams-button')
+    docBody.removeChild(leagueTeamsButton)
     fetch(teamsUrl)
         .then(response => response.json())
         .then((teamData) => {
@@ -82,6 +85,17 @@ function createDeleteLeagueButton(league) {
     deleteLeagueButton.innerText = 'Delete League' 
     deleteLeagueButton.addEventListener('click', () => {
         deletedLeague.deleteLeague()
+    })
+}
+
+function createLeagueTeamsButton(league) {
+    const leagueTeamsButton = document.createElement('button') 
+    const docBody = document.querySelector('body')
+    leagueTeamsButton.setAttribute('id', 'league-teams-button')
+    docBody.appendChild(leagueTeamsButton) 
+    leagueTeamsButton.innerText = 'Show Teams in This League'
+    leagueTeamsButton.addEventListener('click', () => {
+        fetchTeams(league)
     })
 }
 
