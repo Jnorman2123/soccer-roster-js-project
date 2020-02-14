@@ -43,4 +43,11 @@ class Team {
             fetchTeam(this)
         })
     }
+
+    static renderAllTeams(teams) {
+        return teams.map(team => {
+            const newTeam = new Team(team.id, team.name, team.logo, team.nickname, team.stadium, team.manager, team.year_founded)
+            newTeam.renderTeam()
+        })
+    }
 }
