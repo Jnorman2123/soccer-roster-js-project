@@ -107,9 +107,10 @@ function clearForm() {
 function createEditLeagueForm(league) {
     const editLeagueForm = document.createElement('form')
     const docBody = document.querySelector('body')
+    const editedLeague = new League(league.id, league.name, league.logo, league.country, league.division)
     
     let html = `
-        <form onsubmit="editNewLeague; return false;">
+        <form onsubmit="editLeague; return false;">
         <label>League Name: </label>
         <input type="text" id="league_name"><br>
         <label>League Logo: </label>
@@ -123,6 +124,9 @@ function createEditLeagueForm(league) {
     
     docBody.innerHTML = ''
     editLeagueForm.innerHTML = html
-    docBody.appendChild(editLeagueForm)
-    editLeagueForm.addEventListener('submit', editLeague(league))    
+    docBody.append(editLeagueForm)
+    editedLeague.renderLeague()
+    editLeagueForm.addEventListener('submit', () => {
+        editedLeague.editLeague()
+    })    
 }
