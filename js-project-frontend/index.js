@@ -88,31 +88,7 @@ function createNewLeagueForm() {
     
 }
 
-function createNewLeague() {
-    event.preventDefault()
-    const league = {
-        name: document.getElementById('league_name').value,
-        logo: document.getElementById('league_logo').value,
-        country: document.getElementById('league_country').value,
-        division: document.getElementById('league_division').value
-    }
 
-    fetch(leaguesUrl, {
-        method: 'POST',
-        body: JSON.stringify(league),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        return response.json()
-    })
-    .then(() => {
-        clearForm()
-        fetchLeagues()   
-    })
-}
 
 function editLeague(league) {
     

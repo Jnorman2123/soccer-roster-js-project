@@ -42,6 +42,31 @@ class League {
         })
     }
 
+    createNewLeague() {
+        event.preventDefault()
+        const leagueName = document.getElementById('league_name').value
+        const leagueLogo = document.getElementById('league_logo').value
+        const leagueCountry = document.getElementById('league_country').value
+        const leagueDivision = document.getElementById('league_division').value
+        const league = new League(leagueName, leagueLogo, leagueCountry, leagueDivision)
+    
+        fetch(leaguesUrl, {
+            method: 'POST',
+            body: JSON.stringify(league),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(() => {
+            clearForm()
+            fetchLeagues()   
+        })
+    }
+
     deleteLeague() {
         return fetch(leaguesUrl + `/${this.id}`, {
             method: 'DELETE'
