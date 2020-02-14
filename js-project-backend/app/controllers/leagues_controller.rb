@@ -47,8 +47,9 @@ class LeaguesController < ApplicationController
   # DELETE /leagues/1
   # DELETE /leagues/1.json
   def destroy
-    @league.destroy   
-    format.json
+    @league.destroy  
+    leagues = League.all 
+    render json: leagues
   end
 
   private

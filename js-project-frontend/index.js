@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function fetchLeagues() {
+    docBody = document.querySelector('body')
+    docBody.innerHTML = ''
     createNewLeagueButton()
     fetch(leaguesUrl)
         .then(response => response.json())
@@ -22,6 +24,7 @@ function fetchLeague(league) {
             const docBody = document.querySelector('body')
             docBody.innerHTML = ''
             createEditLeagueButton(leagueData)
+            createDeleteLeagueButton(leagueData)
             const theLeague = new League(league.id, league.name, league.logo, league.country, league.division)
             theLeague.renderLeague()
         })
@@ -57,6 +60,14 @@ function createDeleteLeagueButton(league) {
     })
 }
 
+
+function deleteLeague(league) {
+    return fetch(leaguesUrl + `/${league.id}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(fetchLeagues)
+}
 function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
     const docBody = document.querySelector('body')
