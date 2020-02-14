@@ -112,13 +112,13 @@ function createEditLeagueForm(league) {
     let html = `
         <form onsubmit="editLeague; return false;">
         <label>League Name: </label>
-        <input type="text" id="league_name"><br>
+        <input type="text" id="league_name" value="${editedLeague.name}"><br>
         <label>League Logo: </label>
-        <input type="text" id="league_logo"><br>
+        <input type="text" id="league_logo" value="${editedLeague.logo}"><br>
         <label>League Country: </label>
-        <input type="text" id="league_country"><br>
+        <input type="text" id="league_country" value="${editedLeague.country}"><br>
         <label>League Division: </label>
-        <input type="text" id="league_division"><br>
+        <input type="text" id="league_division" value="${editedLeague.division}"><br>
         <input type="submit" value="Edit League">
     `
     
