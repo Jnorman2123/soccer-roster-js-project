@@ -16,7 +16,7 @@ class PlayersController < ApplicationController
 
   # GET /players/new
   def new
-    @player = Player.new
+    player = Player.new
   end
 
   # GET /players/1/edit
@@ -47,6 +47,7 @@ class PlayersController < ApplicationController
   # DELETE /players/1
   # DELETE /players/1.json
   def destroy
+    leagues = League.all
     @player.destroy
     render json: leagues
   end
