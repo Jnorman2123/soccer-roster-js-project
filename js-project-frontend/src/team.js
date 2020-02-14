@@ -60,7 +60,14 @@ class Team {
         const teamStadium = document.getElementById('team_stadium').value
         const teamManager = document.getElementById('team_manager').value
         const teamYearFounded = document.getElementById('team_year_founded').value
-        const team = new Team(teamID, teamName, teamLogo, teamNickname, teamStadium, teamManager, teamYearFounded)
+        const leagueIds = document.getElementsByTagName('option')
+        let leagueId 
+        for (const league of leagueIds) {
+            if (!!league.selected) {
+                leagueId = league.value
+            }
+        }
+        const team = new Team(teamID, teamName, teamLogo, teamNickname, teamStadium, teamManager, teamYearFounded, leagueId)
     
         fetch(teamsUrl, {
             method: 'POST',

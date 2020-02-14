@@ -228,7 +228,6 @@ function createNewTeamForm() {
     const newTeamForm = document.createElement('form')
     const docMain = document.querySelector('#main')
     const newTeamButton = document.querySelector('#new-team')
-    
     let html = `
         <form onsubmit="createNewTeam; return false;">
         <label>Team Name: </label>
@@ -243,8 +242,23 @@ function createNewTeamForm() {
         <input type="text" id="team_manager"><br>
         <label>Year Team Founded: </label>
         <input type="text" id="team_year_founded"><br>
+        <label>League: </label>
+        <select id="leagues">
+
+        </select><br>
         <input type="submit" value="Add a new Team">
     `
+    fetch(leaguesUrl) 
+        .then(response => response.json())
+        .then((leagueData) => {
+            const selectMenu = document.querySelector('#leagues')
+            return leagueData.map(league => {
+                const option = `
+                <option value=${league.id}>${league.name}</option>
+                `
+                selectMenu.innerHTML += option
+            })
+        })
     newTeamButton.remove()
     newTeamForm.innerHTML = html
     docMain.prepend(newTeamForm)
