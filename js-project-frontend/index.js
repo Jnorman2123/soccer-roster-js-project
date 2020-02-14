@@ -13,6 +13,7 @@ function fetchLeague(league) {
             docBody.innerHTML = ''
             createEditLeagueButton(leagueData)
             createDeleteLeagueButton(leagueData)
+            createLeaguesButton()
             const theLeague = new League(league.id, league.name, league.logo, league.country, league.division)
             theLeague.renderLeague()
         })
@@ -27,6 +28,16 @@ function fetchLeagues() {
         .then((leagueData) => {
             League.renderAllLeagues(leagueData)
         })    
+}
+
+function createLeaguesButton() {
+    const leaguesButton = document.createElement('button')
+    const docBody = document.querySelector('body') 
+    docBody.prepend(leaguesButton)
+    leaguesButton.innerText = 'Leagues Page'
+    leaguesButton.addEventListener('click', () => {
+        fetchLeagues()
+    })
 }
 
 function createNewLeagueButton() {
@@ -86,25 +97,6 @@ function createNewLeagueForm() {
         League.createNewLeague()
     })
     
-}
-
-function editLeague(league) {
-    
-    fetch(leaguesUrl + `/${league.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(league),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        return response.json()
-    })
-    .then(() => {
-        clearForm()
-        fetchLeagues()   
-    })
 }
 
 function clearForm() {
