@@ -36,6 +36,7 @@ function fetchLeagues() {
 function fetchTeams() {
     const docMain = document.querySelector('#main')
     docMain.innerHTML = ''
+    createNewTeamButton()
     fetch(teamsUrl)
         .then(response => response.json())
         .then((teamData) => {
@@ -148,6 +149,16 @@ function createTeamLeagueButton(team) {
     })
 }
 
+function createNewTeamButton() {
+    const newTeamButton = document.createElement('button')
+    const docMain = document.querySelector('#main') 
+    docMain.prepend(newTeamButton)
+    newTeamButton.innerText = 'Add a New Team'
+    newTeamButton.addEventListener('click', () => {
+        createNewTeamForm()
+    })
+}
+
 function createEditTeamButton(team) {
     const editTeamButton = document.createElement('button') 
     const docMain = document.querySelector('#main')
@@ -157,8 +168,6 @@ function createEditTeamButton(team) {
         createEditTeamForm(team)
     })
 }
-
-// function createNewLeagueButton()
 
 function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
