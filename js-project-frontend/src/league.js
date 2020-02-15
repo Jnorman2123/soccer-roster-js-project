@@ -44,13 +44,13 @@ class League {
 
     static createNewLeague() {
         event.preventDefault()
-        const leagueID = ''
-        const leagueName = document.getElementById('league_name').value
-        const leagueLogo = document.getElementById('league_logo').value
-        const leagueCountry = document.getElementById('league_country').value
-        const leagueDivision = document.getElementById('league_division').value
-        const league = new League(leagueID, leagueName, leagueLogo, leagueCountry, leagueDivision)
-    
+        const league = {
+            id: '',
+            name: document.getElementById('league_name').value,
+            logo: document.getElementById('league_logo').value,
+            country: document.getElementById('league_country').value,
+            division: document.getElementById('league_division').value
+        }
         fetch(leaguesUrl, {
             method: 'POST',
             body: JSON.stringify(league),
@@ -74,6 +74,7 @@ class League {
         league.logo = document.getElementById('league_logo').value
         league.country = document.getElementById('league_country').value
         league.division = document.getElementById('league_division').value
+
         fetch(leaguesUrl + `/${league.id}`, {
             method: 'PATCH',
             body: JSON.stringify(league),
