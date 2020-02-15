@@ -7,47 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchLeagues()  
 })
 
-function fetchTeams() {
-    const docMain = document.querySelector('#main')
-    docMain.innerHTML = ''
-    createNewTeamButton()
-    fetch(teamsUrl)
-        .then(response => response.json())
-        .then((teamData) => {
-            Team.renderAllTeams(teamData)
-        })
-}
-
-function fetchLeagueTeams(league) {
-    const docMain = document.querySelector('#main')
-    const leagueTeamsButton = document.querySelector('#league-teams-button')
-    docMain.removeChild(leagueTeamsButton)
-    fetch(teamsUrl)
-        .then(response => response.json())
-        .then((teamData) => {
-            return teamData.map(team => {
-                if (league.id === team.league_id) {
-                    const theTeam = new Team(team)
-                    theTeam.renderTeam()
-                }
-            })
-        })
-}
-
-function fetchTeam(team) {
-    fetch(teamsUrl + `/${team.id}`)
-        .then(response => response.json())
-        .then(teamData => {
-            theTeam = new Team(teamData)
-            const docMain = document.querySelector('#main')
-            docMain.innerHTML = ''     
-            createTeamLeagueButton(theTeam)
-            createEditTeamButton(theTeam)
-            createDeleteTeamButton(theTeam)
-            theTeam.renderTeam()
-        })
-}
-
 function createLeaguesButton() {
     const leaguesButton = document.createElement('button')
     const navBar = document.querySelector('#nav') 
