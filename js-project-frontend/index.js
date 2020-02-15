@@ -136,6 +136,20 @@ function createEditLeagueForm(league) {
     })    
 }
 
+function fetchLeagueIds() {
+    fetch(leaguesUrl) 
+        .then(response => response.json())
+        .then((leagueData) => {
+            const selectMenu = document.querySelector('#leagues')
+            return leagueData.map(league => {
+                const option = `
+                <option value=${league.id}>${league.name}</option>
+                `
+                selectMenu.innerHTML += option
+            })
+        })
+}
+
 function createNewTeamForm() {
     const newTeamForm = document.createElement('form')
     const docMain = document.querySelector('#main')
@@ -152,17 +166,7 @@ function createNewTeamForm() {
         </select><br>
         <input type="submit" value="Add a new Team">`
     
-    fetch(leaguesUrl) 
-        .then(response => response.json())
-        .then((leagueData) => {
-            const selectMenu = document.querySelector('#leagues')
-            return leagueData.map(league => {
-                const option = `
-                <option value=${league.id}>${league.name}</option>
-                `
-                selectMenu.innerHTML += option
-            })
-        })
+    fetchLeagueIds()
     newTeamButton.remove()
     newTeamForm.innerHTML = html
     docMain.prepend(newTeamForm)
@@ -185,21 +189,10 @@ function createEditTeamForm(team) {
     }
     html += `<label>League: </label>
         <select id="leagues">
-
         </select><br>
         <input type="submit" value="Edit Team">`
 
-    fetch(leaguesUrl) 
-        .then(response => response.json())
-        .then((leagueData) => {
-            const selectMenu = document.querySelector('#leagues')
-            return leagueData.map(league => {
-                const option = `
-                <option value=${league.id}>${league.name}</option>
-                `
-                selectMenu.innerHTML += option
-            })
-        })
+    fetchLeagueIds()   
     docMain.innerHTML = ''
     editTeamForm.innerHTML = html
     docMain.append(editTeamForm)
