@@ -15,11 +15,11 @@ function fetchLeague(league) {
         .then(leagueData => {
             const docMain = document.querySelector('#main')
             docMain.innerHTML = ''
-            createEditLeagueButton(leagueData)
-            createDeleteLeagueButton(leagueData)
+            createButton('edit-league-button', 'main', 'Edit League')
+            createButton('delete-league-button', 'main', 'Delete League')
             const theLeague = new League(leagueData)
             League.renderLeague(theLeague)
-            createLeagueTeamsButton(league)
+            createButton('league-teams-button', 'main', 'Show Teams in This League')
             addLeagueEventListeners(league)
         })
 }

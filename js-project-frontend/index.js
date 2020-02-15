@@ -2,8 +2,8 @@ const leaguesUrl = 'http://localhost:3000/leagues'
 const teamsUrl = 'http://localhost:3000/teams'
 
 document.addEventListener('DOMContentLoaded', () => { 
-    createLeaguesButton()
-    createTeamsButton()
+    createButton('leagues-button', 'nav', 'Leagues Page')
+    createButton('teams-button', 'nav', 'Teams Page')
     addNavEventListeners()
     fetchLeagues()  
 })
@@ -13,13 +13,6 @@ function createButton(id, mount, label) {
     buttonMount.innerHTML += `
         <button id="${id}">${label}</button>
     `
-}
-function createLeaguesButton() {
-    createButton('leagues-button', 'nav', 'Leagues Page')
-}
-
-function createTeamsButton() {
-    createButton('teams-button', 'nav', 'Teams Page') 
 }
 
 function addNavEventListeners() {
@@ -39,21 +32,6 @@ function createNewLeagueButton() {
     newLeagueButton.addEventListener('click', () => {
         createNewLeagueForm()
     })
-}
-
-function createEditLeagueButton(league) {
-    createButton('edit-league-button', 'main', 'Edit League')
-    
-    
-}
-
-function createDeleteLeagueButton(league) {
-    createButton('delete-league-button', 'main', 'Delete League')
-    
-}
-
-function createLeagueTeamsButton(league) {
-    createButton('league-teams-button', 'main', 'Show Teams in This League')
 }
 
 function addLeagueEventListeners(league) {
@@ -97,14 +75,6 @@ function createTeamLeagueButton(team) {
     teamLeague = new League(leagueData)
 }
 
-function createEditTeamButton() {
-    createButton('edit-team-button', 'main', 'Edit Team') 
-}
-
-function createDeleteTeamButton() {
-    createButton('delete-team-button', 'main', 'Delete Team')
-}
-
 function addTeamEventListeners(team) {
     const teamLeagueButton = document.querySelector('#team-league-button')
     teamLeagueButton.addEventListener('click', () => {
@@ -126,19 +96,15 @@ function createNewLeagueForm() {
     const newLeagueForm = document.createElement('form')
     const docMain = document.querySelector('#main')
     const newLeagueButton = document.querySelector('#new-league-button')
+    const properties = ['name', 'logo', 'country', 'division']
+    let html = ''
+    html += `<form onsubmit="createNewLeague; return false;">`
+    for (const property of properties) {
+        html += `<label>League ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
+        <input type="text" id="league_${property}"><br>`
+    }
+    html += `<input type="submit" value="Add a new League">`
     
-    let html = `
-        <form onsubmit="createNewLeague; return false;">
-        <label>League Name: </label>
-        <input type="text" id="league_name"><br>
-        <label>League Logo: </label>
-        <input type="text" id="league_logo"><br>
-        <label>League Country: </label>
-        <input type="text" id="league_country"><br>
-        <label>League Division: </label>
-        <input type="text" id="league_division"><br>
-        <input type="submit" value="Add a new League">
-    `
     newLeagueButton.remove()
     newLeagueForm.innerHTML = html
     docMain.prepend(newLeagueForm)
@@ -152,19 +118,15 @@ function createEditLeagueForm(league) {
     const editLeagueForm = document.createElement('form')
     const docMain = document.querySelector('#main')
     
-    let html = `
-        <form onsubmit="editLeague; return false;">
-        <label>League Name: </label>
-        <input type="text" id="league_name" value="${league.name}"><br>
-        <label>League Logo: </label>
-        <input type="text" id="league_logo" value="${league.logo}"><br>
-        <label>League Country: </label>
-        <input type="text" id="league_country" value="${league.country}"><br>
-        <label>League Division: </label>
-        <input type="text" id="league_division" value="${league.division}"><br>
-        <input type="submit" value="Edit League">
-    `
-    
+    let html = ''
+    html += `<form onsubmit="editLeague; return false;">`  
+    for (const property in league) {
+        if (property != 'id') {
+            html += `<label>League ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
+            <input type="text" id="league_${property}" value="${league[property]}"><br>`
+        }
+    }
+    html += `<input type="submit" value="Edit League">`
     docMain.innerHTML = ''
     editLeagueForm.innerHTML = html
     docMain.append(editLeagueForm)

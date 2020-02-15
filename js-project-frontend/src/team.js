@@ -33,8 +33,8 @@ function fetchTeam(team) {
             const docMain = document.querySelector('#main')
             docMain.innerHTML = ''     
             createTeamLeagueButton(theTeam)
-            createEditTeamButton(theTeam)
-            createDeleteTeamButton(theTeam)
+            createButton('edit-team-button', 'main', 'Edit Team')
+            createButton('delete-team-button', 'main', 'Delete Team')
             addTeamEventListeners(theTeam)
             theTeam.renderTeam()
         })
