@@ -1,15 +1,15 @@
 
 
 class League {
-    constructor(id, name, logo, country, division) {
-        this.id = id;
-        this.name = name;
-        this.logo = logo; 
-        this.country = country;
-        this.division = division
+    constructor(league) {
+        this.id = league.id;
+        this.name = league.name;
+        this.logo = league.logo; 
+        this.country = league.country;
+        this.division = league.division
     }
 
-    renderLeague() {
+    static renderLeague(league) {
         const docMain = document.querySelector('#main')
         const leagueCard = document.createElement('div')
         const leagueName = document.createElement('h1')
@@ -26,19 +26,19 @@ class League {
         leagueCard.appendChild(leagueLogo)
         leagueCard.appendChild(leagueCountry)
         leagueCard.appendChild(leagueDivision)
-        leagueName.innerText = this.name
-        leagueLogo.src = this.logo
-        leagueCountry.innerText = this.country
-        leagueDivision.innerText = this.division
+        leagueName.innerText = league.name
+        leagueLogo.src = league.logo
+        leagueCountry.innerText = league.country
+        leagueDivision.innerText = league.division
         leagueName.addEventListener('click', () => {
-            fetchLeague(this)
+            fetchLeague(league)
         })
     }
 
     static renderAllLeagues(leagues) {
         return leagues.map(league => {
-            const newLeague = new League(league.id, league.name, league.logo, league.country, league.division)
-            newLeague.renderLeague()
+            const newLeague = new League(league)
+            League.renderLeague(newLeague)
         })
     }
 
@@ -68,15 +68,13 @@ class League {
         })
     }
 
-    editLeague() {
-        const leagueID = ''
-        const leagueName = document.getElementById('league_name').value
-        const leagueLogo = document.getElementById('league_logo').value
-        const leagueCountry = document.getElementById('league_country').value
-        const leagueDivision = document.getElementById('league_division').value
-        const league = new League(leagueID, leagueName, leagueLogo, leagueCountry, leagueDivision)
-
-        fetch(leaguesUrl + `/${this.id}`, {
+    static editLeague(league) {
+        event.preventDefault()
+        league.name = document.getElementById('league_name').value
+        league.logo = document.getElementById('league_logo').value
+        league.country = document.getElementById('league_country').value
+        league.division = document.getElementById('league_division').value
+        fetch(leaguesUrl + `/${league.id}`, {
             method: 'PATCH',
             body: JSON.stringify(league),
             headers: {
@@ -89,7 +87,7 @@ class League {
         })
         .then(() => {
             clearForm()
-            fetchLeagues()   
+            fetchLeague(league)   
         })
     }
 
@@ -97,7 +95,6 @@ class League {
         return fetch(leaguesUrl + `/${this.id}`, {
             method: 'DELETE'
         })
-        .then(response => response.json())
         .then(fetchLeagues)
     }
 

@@ -129,7 +129,6 @@ class Team {
         return fetch(teamsUrl + `/${this.id}`, {
             method: 'DELETE'
         })
-        .then(response => response.json())
         .then(fetchTeams)
     }
 }

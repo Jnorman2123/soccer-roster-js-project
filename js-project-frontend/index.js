@@ -16,8 +16,8 @@ function fetchLeague(league) {
             docMain.innerHTML = ''
             createEditLeagueButton(leagueData)
             createDeleteLeagueButton(leagueData)
-            const theLeague = new League(leagueData.id, leagueData.name, leagueData.logo, leagueData.country, leagueData.division)
-            theLeague.renderLeague()
+            const theLeague = new League(leagueData)
+            League.renderLeague(theLeague)
             createLeagueTeamsButton(league)
         })
 }
@@ -106,7 +106,7 @@ function createEditLeagueButton(league) {
 }
 
 function createDeleteLeagueButton(league) {
-    const deletedLeague = new League(league.id, league.name, league.logo, league.country, league.divsion)
+    const deletedLeague = new League(league)
     const deleteLeagueButton = document.createElement('button') 
     const docMain = document.querySelector('#main') 
     docMain.appendChild(deleteLeagueButton) 
@@ -209,27 +209,26 @@ function createNewLeagueForm() {
 function createEditLeagueForm(league) {
     const editLeagueForm = document.createElement('form')
     const docMain = document.querySelector('#main')
-    const editedLeague = new League(league.id, league.name, league.logo, league.country, league.division)
     
     let html = `
         <form onsubmit="editLeague; return false;">
         <label>League Name: </label>
-        <input type="text" id="league_name" value="${editedLeague.name}"><br>
+        <input type="text" id="league_name" value="${league.name}"><br>
         <label>League Logo: </label>
-        <input type="text" id="league_logo" value="${editedLeague.logo}"><br>
+        <input type="text" id="league_logo" value="${league.logo}"><br>
         <label>League Country: </label>
-        <input type="text" id="league_country" value="${editedLeague.country}"><br>
+        <input type="text" id="league_country" value="${league.country}"><br>
         <label>League Division: </label>
-        <input type="text" id="league_division" value="${editedLeague.division}"><br>
+        <input type="text" id="league_division" value="${league.division}"><br>
         <input type="submit" value="Edit League">
     `
     
     docMain.innerHTML = ''
     editLeagueForm.innerHTML = html
     docMain.append(editLeagueForm)
-    editedLeague.renderLeague()
+    League.renderLeague(league)
     editLeagueForm.addEventListener('submit', () => {
-        editedLeague.editLeague()
+        League.editLeague(league)
     })    
 }
 
