@@ -1,13 +1,13 @@
 class Team {
-    constructor(id, name, logo, nickname, stadium, manager, year_founded, league_id) {
-        this.id = id
-        this.name = name
-        this.logo = logo
-        this.nickname = nickname
-        this.stadium = stadium
-        this.manager = manager
-        this.year_founded = year_founded
-        this.league_id = league_id
+    constructor(team) {
+        this.id = team.id
+        this.name = team.name
+        this.logo = team.logo
+        this.nickname = team.nickname
+        this.stadium = team.stadium
+        this.manager = team.manager
+        this.year_founded = team.year_founded
+        this.league_id = team.league_id
     }
 
     renderTeam() {
@@ -46,20 +46,13 @@ class Team {
 
     static renderAllTeams(teams) {
         return teams.map(team => {
-            const newTeam = new Team(team.id, team.name, team.logo, team.nickname, team.stadium, team.manager, team.year_founded)
+            const newTeam = new Team(team)
             newTeam.renderTeam()
         })
     }
 
     static createNewTeam() {
         event.preventDefault()
-        const teamID = ''
-        const teamName = document.getElementById('team_name').value
-        const teamLogo = document.getElementById('team_logo').value
-        const teamNickname = document.getElementById('team_nickname').value
-        const teamStadium = document.getElementById('team_stadium').value
-        const teamManager = document.getElementById('team_manager').value
-        const teamYearFounded = document.getElementById('team_year_founded').value
         const leagueIds = document.getElementsByTagName('option')
         let leagueId 
         for (const league of leagueIds) {
@@ -67,11 +60,20 @@ class Team {
                 leagueId = league.value
             }
         }
-        const team = new Team(teamID, teamName, teamLogo, teamNickname, teamStadium, teamManager, teamYearFounded, leagueId)
-    
+        const newTeam = {
+            id: '',
+            name: document.getElementById('team_name').value,
+            logo: document.getElementById('team_logo').value,
+            nickname: document.getElementById('team_nickname').value,
+            stadium: document.getElementById('team_stadium').value,
+            manager: document.getElementById('team_manager').value,
+            year_founded: document.getElementById('team_year_founded').value,
+            league_id: leagueId
+        }
+        
         fetch(teamsUrl, {
             method: 'POST',
-            body: JSON.stringify(team),
+            body: JSON.stringify(newTeam),
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -86,15 +88,8 @@ class Team {
         })
     }
 
-    editTeam() {
+    static editTeam(team) {
         event.preventDefault()
-        const teamID = ''
-        const teamName = document.getElementById('team_name').value
-        const teamLogo = document.getElementById('team_logo').value
-        const teamNickname = document.getElementById('team_nickname').value
-        const teamStadium = document.getElementById('team_stadium').value
-        const teamManager = document.getElementById('team_manager').value
-        const teamYearFounded = document.getElementById('team_year_founded').value
         const leagueIds = document.getElementsByTagName('option')
         let leagueId 
         for (const league of leagueIds) {
@@ -102,11 +97,18 @@ class Team {
                 leagueId = league.value
             }
         }
-        const team = new Team(teamID, teamName, teamLogo, teamNickname, teamStadium, teamManager, teamYearFounded, leagueId)
+        team.name = document.getElementById('team_name').value
+        team.logo = document.getElementById('team_logo').value
+        team.nickname = document.getElementById('team_nickname').value
+        team.stadium = document.getElementById('team_stadium').value
+        team.manager = document.getElementById('team_manager').value
+        team.yearFounded = document.getElementById('team_year_founded').value
+        team.league_id = leagueId
+        const editedTeam = new Team(team)
 
-        fetch(teamsUrl + `/${this.id}`, {
+        fetch(teamsUrl + `/${team.id}`, {
             method: 'PATCH',
-            body: JSON.stringify(team),
+            body: JSON.stringify(editedTeam),
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
