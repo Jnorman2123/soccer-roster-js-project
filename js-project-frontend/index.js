@@ -4,6 +4,7 @@ const teamsUrl = 'http://localhost:3000/teams'
 document.addEventListener('DOMContentLoaded', () => { 
     createLeaguesButton()
     createTeamsButton()
+    addNavEventListeners()
     fetchLeagues()  
 })
 
@@ -15,12 +16,23 @@ function createButton(id, mount, label) {
 }
 function createLeaguesButton() {
     createButton('leagues-button', 'nav', 'Leagues Page')
+}
+
+function createTeamsButton() {
+    createButton('teams-button', 'nav', 'Teams Page') 
+}
+
+function addNavEventListeners() {
     const leaguesButton = document.querySelector('#leagues-button')
     leaguesButton.addEventListener('click', () => {
         fetchLeagues()
     })
-}
 
+    const teamsButton = document.querySelector('#teams-button')
+    teamsButton.addEventListener('click', () => {
+        fetchTeams()
+    })
+}
 function createNewLeagueButton() {
     createButton('new-league-button', 'main', 'Add a New League')
     const newLeagueButton = document.querySelector('#new-league-button')
@@ -65,22 +77,17 @@ function addLeagueEventListeners(league) {
     })
 }
 
-function createTeamsButton() {
-    const teamsButton = document.createElement('button')
-    const docNav = document.querySelector('#nav') 
-    docNav.prepend(teamsButton)
-    teamsButton.innerText = 'Teams Page'
-    teamsButton.addEventListener('click', () => {
-        fetchTeams()
-    })
-}
-
 function createTeamLeagueButton(team) {
-    const teamLeagueButton = document.createElement('button')
-    const docMain = document.querySelector('#main')
-    docMain.appendChild(teamLeagueButton)
-    teamLeagueButton.innerText = `Return to League`
-    const teamLeague = new League(team.league_id, '', '', '', '')
+    createButton('team-league-button', 'main', 'Return to League')
+    const leagueData = {
+        id: team.league_id,
+        name: '',
+        logo: '',
+        country: '', 
+        division: '',
+    }
+    teamLeague = new League(leagueData)
+    const teamLeagueButton = document.querySelector('#team-league-button')
     teamLeagueButton.addEventListener('click', () => {
         fetchLeague(teamLeague)
     })
