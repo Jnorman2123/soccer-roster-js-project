@@ -65,13 +65,11 @@ function fetchTeam(team) {
         .then(response => response.json())
         .then(teamData => {
             const docMain = document.querySelector('#main')
-            docMain.innerHTML = ''
-            // createEditTeamButton(teamData)
-            // createDeleteTeamButton(teamData)
-            // createTeamsButton()
+            docMain.innerHTML = ''     
             const theTeam = new Team(teamData.id, teamData.name, teamData.logo, teamData.nickname, teamData.stadium, teamData.manager, teamData.year_founded)
-            createTeamLeagueButton(teamData)
+            createTeamLeagueButton(team)
             createEditTeamButton(team)
+            createDeleteTeamButton(team)
             theTeam.renderTeam()
         })
 }
@@ -168,6 +166,17 @@ function createEditTeamButton(team) {
     editTeamButton.innerText = 'Edit Team'
     editTeamButton.addEventListener('click', () => {
         createEditTeamForm(team)
+    })
+}
+
+function createDeleteTeamButton(team) {
+    const deletedTeam = new Team(team.id, team.name, team.logo, team.nickname, team.stadium, team.manager, team.year_founded)
+    const deleteTeamButton = document.createElement('button') 
+    const docMain = document.querySelector('#main') 
+    docMain.appendChild(deleteTeamButton) 
+    deleteTeamButton.innerText = 'Delete Team' 
+    deleteTeamButton.addEventListener('click', () => {
+        deletedTeam.deleteTeam()
     })
 }
 
