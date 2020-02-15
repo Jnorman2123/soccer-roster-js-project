@@ -120,8 +120,16 @@ class Team {
             fetch(teamsUrl + `/${data.id}`)
                 .then(response => response.json())
                 .then(teamData => {
-                    return teamData.renderTeam()
+                    return fetchTeam(teamData)
                 })   
         })
+    }
+
+    deleteTeam() {
+        return fetch(teamsUrl + `/${this.id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(fetchTeams)
     }
 }
