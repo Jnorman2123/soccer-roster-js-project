@@ -140,26 +140,18 @@ function createNewTeamForm() {
     const newTeamForm = document.createElement('form')
     const docMain = document.querySelector('#main')
     const newTeamButton = document.querySelector('#new-team-button')
-    let html = `
-        <form onsubmit="createNewTeam; return false;">
-        <label>Team Name: </label>
-        <input type="text" id="team_name"><br>
-        <label>Team Logo: </label>
-        <input type="text" id="team_logo"><br>
-        <label>Team Nickname: </label>
-        <input type="text" id="team_nickname"><br>
-        <label>Team Stadium: </label>
-        <input type="text" id="team_stadium"><br>
-        <label>Team Manager: </label>
-        <input type="text" id="team_manager"><br>
-        <label>Year Team Founded: </label>
-        <input type="text" id="team_year_founded"><br>
-        <label>League: </label>
+    const properties = ['name', 'logo', 'nickname', 'stadium', 'manager', 'year_founded']
+    let html = ''
+    html += `<form onsubmit="createNewTeam; return false;">`
+    for (property of properties) {
+        html += `<label>Team ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
+        <input type="text" id="team_${property}"><br>`
+    }
+     html += `<label>League: </label>
         <select id="leagues">
-
         </select><br>
-        <input type="submit" value="Add a new Team">
-    `
+        <input type="submit" value="Add a new Team">`
+    
     fetch(leaguesUrl) 
         .then(response => response.json())
         .then((leagueData) => {
@@ -183,26 +175,20 @@ function createNewTeamForm() {
 function createEditTeamForm(team) {
     const editTeamForm = document.createElement('form')
     const docMain = document.querySelector('#main')
-    let html = `
-        <form onsubmit="createEditTeam; return false;">
-        <label>Team Name: </label>
-        <input type="text" id="team_name" value="${team.name}"><br>
-        <label>Team Logo: </label>
-        <input type="text" id="team_logo" value="${team.logo}"><br>
-        <label>Team Nickname: </label>
-        <input type="text" id="team_nickname" value="${team.nickname}"><br>
-        <label>Team Stadium: </label>
-        <input type="text" id="team_stadium" value="${team.stadium}"><br>
-        <label>Team Manager: </label>
-        <input type="text" id="team_manager" value="${team.manager}"><br>
-        <label>Year Team Founded: </label>
-        <input type="text" id="team_year_founded" value="${team.year_founded}"><br>
-        <label>League: </label>
+    let html = ''
+    html += `<form onsubmit="createEditTeam; return false;">`
+    for (const property in team) {
+        if (property != 'id' && property != 'league_id') {
+            html += `<label>Team ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
+            <input type="text" id="team_${property}" value="${team[property]}"><br>`
+        }
+    }
+    html += `<label>League: </label>
         <select id="leagues">
 
         </select><br>
-        <input type="submit" value="Edit Team">
-    `
+        <input type="submit" value="Edit Team">`
+
     fetch(leaguesUrl) 
         .then(response => response.json())
         .then((leagueData) => {
