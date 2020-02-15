@@ -1,37 +1,11 @@
 const leaguesUrl = 'http://localhost:3000/leagues'
 const teamsUrl = 'http://localhost:3000/teams'
 
-
 document.addEventListener('DOMContentLoaded', () => { 
     createLeaguesButton()
     createTeamsButton()
     fetchLeagues()  
 })
-
-function fetchLeague(league) {
-    fetch(leaguesUrl + `/${league.id}`)
-        .then(response => response.json())
-        .then(leagueData => {
-            const docMain = document.querySelector('#main')
-            docMain.innerHTML = ''
-            createEditLeagueButton(leagueData)
-            createDeleteLeagueButton(leagueData)
-            const theLeague = new League(leagueData)
-            League.renderLeague(theLeague)
-            createLeagueTeamsButton(league)
-        })
-}
-
-function fetchLeagues() {
-    const docMain = document.querySelector('#main')
-    docMain.innerHTML = ''
-    createNewLeagueButton()
-    fetch(leaguesUrl)
-        .then(response => response.json())
-        .then((leagueData) => {
-            League.renderAllLeagues(leagueData)
-        })    
-}
 
 function fetchTeams() {
     const docMain = document.querySelector('#main')
