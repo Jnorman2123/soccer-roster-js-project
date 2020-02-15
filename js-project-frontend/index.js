@@ -53,7 +53,7 @@ function fetchLeagueTeams(league) {
         .then((teamData) => {
             return teamData.map(team => {
                 if (league.id === team.league_id) {
-                    const theTeam = new Team(team.id, team.name, team.logo, team.nickname, team.stadium, team.manager, team.year_founded)
+                    const theTeam = new Team(team)
                     theTeam.renderTeam()
                 }
             })
@@ -64,12 +64,12 @@ function fetchTeam(team) {
     fetch(teamsUrl + `/${team.id}`)
         .then(response => response.json())
         .then(teamData => {
+            theTeam = new Team(teamData)
             const docMain = document.querySelector('#main')
             docMain.innerHTML = ''     
-            const theTeam = new Team(teamData.id, teamData.name, teamData.logo, teamData.nickname, teamData.stadium, teamData.manager, teamData.year_founded)
-            createTeamLeagueButton(team)
-            createEditTeamButton(team)
-            createDeleteTeamButton(team)
+            createTeamLeagueButton(theTeam)
+            createEditTeamButton(theTeam)
+            createDeleteTeamButton(theTeam)
             theTeam.renderTeam()
         })
 }
@@ -106,13 +106,12 @@ function createEditLeagueButton(league) {
 }
 
 function createDeleteLeagueButton(league) {
-    const deletedLeague = new League(league)
     const deleteLeagueButton = document.createElement('button') 
     const docMain = document.querySelector('#main') 
     docMain.appendChild(deleteLeagueButton) 
     deleteLeagueButton.innerText = 'Delete League' 
     deleteLeagueButton.addEventListener('click', () => {
-        deletedLeague.deleteLeague()
+        league.deleteLeague()
     })
 }
 
@@ -170,13 +169,12 @@ function createEditTeamButton(team) {
 }
 
 function createDeleteTeamButton(team) {
-    const deletedTeam = new Team(team.id, team.name, team.logo, team.nickname, team.stadium, team.manager, team.year_founded)
     const deleteTeamButton = document.createElement('button') 
     const docMain = document.querySelector('#main') 
     docMain.appendChild(deleteTeamButton) 
     deleteTeamButton.innerText = 'Delete Team' 
     deleteTeamButton.addEventListener('click', () => {
-        deletedTeam.deleteTeam()
+        team.deleteTeam()
     })
 }
 
@@ -279,21 +277,20 @@ function createNewTeamForm() {
 function createEditTeamForm(team) {
     const editTeamForm = document.createElement('form')
     const docMain = document.querySelector('#main')
-    const editedTeam = new Team(team.id, team.name, team.logo, team.nickname, team.stadium, team.manager, team.year_founded)
     let html = `
         <form onsubmit="createEditTeam; return false;">
         <label>Team Name: </label>
-        <input type="text" id="team_name" value="${editedTeam.name}"><br>
+        <input type="text" id="team_name" value="${team.name}"><br>
         <label>Team Logo: </label>
-        <input type="text" id="team_logo" value="${editedTeam.logo}"><br>
+        <input type="text" id="team_logo" value="${team.logo}"><br>
         <label>Team Nickname: </label>
-        <input type="text" id="team_nickname" value="${editedTeam.nickname}"><br>
+        <input type="text" id="team_nickname" value="${team.nickname}"><br>
         <label>Team Stadium: </label>
-        <input type="text" id="team_stadium" value="${editedTeam.stadium}"><br>
+        <input type="text" id="team_stadium" value="${team.stadium}"><br>
         <label>Team Manager: </label>
-        <input type="text" id="team_manager" value="${editedTeam.manager}"><br>
+        <input type="text" id="team_manager" value="${team.manager}"><br>
         <label>Year Team Founded: </label>
-        <input type="text" id="team_year_founded" value="${editedTeam.year_founded}"><br>
+        <input type="text" id="team_year_founded" value="${team.year_founded}"><br>
         <label>League: </label>
         <select id="leagues">
 
@@ -314,9 +311,9 @@ function createEditTeamForm(team) {
     docMain.innerHTML = ''
     editTeamForm.innerHTML = html
     docMain.append(editTeamForm)
-    editedTeam.renderTeam()
+    team.renderTeam()
     editTeamForm.addEventListener('submit', () => {
-        editedTeam.editTeam()
+        Team.editTeam(team)
     })
 }
 

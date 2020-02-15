@@ -102,7 +102,7 @@ class Team {
         team.nickname = document.getElementById('team_nickname').value
         team.stadium = document.getElementById('team_stadium').value
         team.manager = document.getElementById('team_manager').value
-        team.yearFounded = document.getElementById('team_year_founded').value
+        team.year_founded = document.getElementById('team_year_founded').value
         team.league_id = leagueId
         const editedTeam = new Team(team)
 
