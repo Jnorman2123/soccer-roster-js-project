@@ -87,6 +87,7 @@ class Team {
     }
 
     editTeam() {
+        event.preventDefault()
         const teamID = ''
         const teamName = document.getElementById('team_name').value
         const teamLogo = document.getElementById('team_logo').value
@@ -101,7 +102,7 @@ class Team {
                 leagueId = league.value
             }
         }
-        const team = new Team(teamID, teamName, teamLogo, teamNickname, teamStadium, teamManager, teamYearFounded)
+        const team = new Team(teamID, teamName, teamLogo, teamNickname, teamStadium, teamManager, teamYearFounded, leagueId)
 
         fetch(teamsUrl + `/${this.id}`, {
             method: 'PATCH',
@@ -114,9 +115,13 @@ class Team {
         .then(response => {
             return response.json()
         })
-        .then(() => {
+        .then((data) => {
             clearForm()
-            fetchLeagues()   
+            fetch(teamsUrl + `/${data.id}`)
+                .then(response => response.json())
+                .then(teamData => {
+                    return teamData.renderTeam()
+                })   
         })
     }
 }

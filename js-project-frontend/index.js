@@ -268,6 +268,50 @@ function createNewTeamForm() {
     
 }
 
+function createEditTeamForm(team) {
+    const editTeamForm = document.createElement('form')
+    const docMain = document.querySelector('#main')
+    const editedTeam = new Team(team.id, team.name, team.logo, team.nickname, team.stadium, team.manager, team.year_founded)
+    let html = `
+        <form onsubmit="createEditTeam; return false;">
+        <label>Team Name: </label>
+        <input type="text" id="team_name" value="${editedTeam.name}"><br>
+        <label>Team Logo: </label>
+        <input type="text" id="team_logo" value="${editedTeam.logo}"><br>
+        <label>Team Nickname: </label>
+        <input type="text" id="team_nickname" value="${editedTeam.nickname}"><br>
+        <label>Team Stadium: </label>
+        <input type="text" id="team_stadium" value="${editedTeam.stadium}"><br>
+        <label>Team Manager: </label>
+        <input type="text" id="team_manager" value="${editedTeam.manager}"><br>
+        <label>Year Team Founded: </label>
+        <input type="text" id="team_year_founded" value="${editedTeam.year_founded}"><br>
+        <label>League: </label>
+        <select id="leagues">
+
+        </select><br>
+        <input type="submit" value="Edit Team">
+    `
+    fetch(leaguesUrl) 
+        .then(response => response.json())
+        .then((leagueData) => {
+            const selectMenu = document.querySelector('#leagues')
+            return leagueData.map(league => {
+                const option = `
+                <option value=${league.id}>${league.name}</option>
+                `
+                selectMenu.innerHTML += option
+            })
+        })
+    docMain.innerHTML = ''
+    editTeamForm.innerHTML = html
+    docMain.append(editTeamForm)
+    editedTeam.renderTeam()
+    editTeamForm.addEventListener('submit', () => {
+        editedTeam.editTeam()
+    })
+}
+
 function clearForm() {
     let form = document.querySelector('form')
     form.remove()
