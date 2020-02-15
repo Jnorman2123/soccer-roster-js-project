@@ -8,43 +8,40 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function createButton(id, mount, label) {
-    const buttonMount = document.querySelector('#' + mount)
+    const buttonMount = document.querySelector(`#${mount}`)
     buttonMount.innerHTML += `
         <button id="${id}">${label}</button>
     `
-    return buttonMount
 }
 function createLeaguesButton() {
-    const leaguesButton = createButton('leagues-button', 'nav', 'Leagues Page')
+    createButton('leagues-button', 'nav', 'Leagues Page')
+    const leaguesButton = document.querySelector('#leagues-button')
     leaguesButton.addEventListener('click', () => {
         fetchLeagues()
     })
 }
 
 function createNewLeagueButton() {
-    const newLeagueButton = createButton('new-league-button', 'main', 'Add a New League')
+    createButton('new-league-button', 'main', 'Add a New League')
+    const newLeagueButton = document.querySelector('#new-league-button')
     newLeagueButton.addEventListener('click', () => {
         createNewLeagueForm()
     })
 }
 
 function createEditLeagueButton(league) {
-    const editLeagueButton = document.createElement('button') 
-    const docMain = document.querySelector('#main')
-    docMain.appendChild(editLeagueButton)
-    editLeagueButton.innerText = 'Edit League'
+    createButton('edit-league-button', 'main', 'Edit League')
+    const editLeagueButton = document.querySelector('#edit-league-button')
     editLeagueButton.addEventListener('click', () => {
         createEditLeagueForm(league)
     })
 }
 
 function createDeleteLeagueButton(league) {
-    const deleteLeagueButton = document.createElement('button') 
-    const docMain = document.querySelector('#main') 
-    docMain.appendChild(deleteLeagueButton) 
-    deleteLeagueButton.innerText = 'Delete League' 
+    createButton('delete-league-button', 'main', 'Delete League')
+    const deleteLeagueButton = document.querySelector('#delete-league-button')
     deleteLeagueButton.addEventListener('click', () => {
-        league.deleteLeague()
+        League.deleteLeague(league)
     })
 }
 

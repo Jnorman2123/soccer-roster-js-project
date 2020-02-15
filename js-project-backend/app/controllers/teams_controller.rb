@@ -49,7 +49,7 @@ class TeamsController < ApplicationController
   def destroy
     leagues = League.all
     @team.destroy
-      render json: leagues
+    render json: leagues
   end
 
   private
