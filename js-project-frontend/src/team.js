@@ -35,6 +35,7 @@ function fetchTeam(team) {
             createTeamLeagueButton(theTeam)
             createEditTeamButton(theTeam)
             createDeleteTeamButton(theTeam)
+            addTeamEventListeners(theTeam)
             theTeam.renderTeam()
         })
 }

@@ -77,6 +77,14 @@ function addLeagueEventListeners(league) {
     })
 }
 
+function createNewTeamButton() {
+    createButton('new-team-button', 'main', 'Add a New Team')
+    newTeamButton = document.querySelector('#new-team-button')
+    newTeamButton.addEventListener('click', () => {
+        createNewTeamForm()
+    })
+}
+
 function createTeamLeagueButton(team) {
     createButton('team-league-button', 'main', 'Return to League')
     const leagueData = {
@@ -87,38 +95,28 @@ function createTeamLeagueButton(team) {
         division: '',
     }
     teamLeague = new League(leagueData)
+}
+
+function createEditTeamButton() {
+    createButton('edit-team-button', 'main', 'Edit Team') 
+}
+
+function createDeleteTeamButton() {
+    createButton('delete-team-button', 'main', 'Delete Team')
+}
+
+function addTeamEventListeners(team) {
     const teamLeagueButton = document.querySelector('#team-league-button')
     teamLeagueButton.addEventListener('click', () => {
         fetchLeague(teamLeague)
     })
-}
 
-function createNewTeamButton() {
-    const newTeamButton = document.createElement('button')
-    const docMain = document.querySelector('#main') 
-    newTeamButton.setAttribute('id', 'new-team')
-    docMain.prepend(newTeamButton)
-    newTeamButton.innerText = 'Add a New Team'
-    newTeamButton.addEventListener('click', () => {
-        createNewTeamForm()
-    })
-}
-
-function createEditTeamButton(team) {
-    const editTeamButton = document.createElement('button') 
-    const docMain = document.querySelector('#main')
-    docMain.appendChild(editTeamButton)
-    editTeamButton.innerText = 'Edit Team'
+    const editTeamButton = document.querySelector('#edit-team-button')
     editTeamButton.addEventListener('click', () => {
         createEditTeamForm(team)
     })
-}
 
-function createDeleteTeamButton(team) {
-    const deleteTeamButton = document.createElement('button') 
-    const docMain = document.querySelector('#main') 
-    docMain.appendChild(deleteTeamButton) 
-    deleteTeamButton.innerText = 'Delete Team' 
+    const deleteTeamButton = document.querySelector('#delete-team-button')
     deleteTeamButton.addEventListener('click', () => {
         team.deleteTeam()
     })
@@ -179,7 +177,7 @@ function createEditLeagueForm(league) {
 function createNewTeamForm() {
     const newTeamForm = document.createElement('form')
     const docMain = document.querySelector('#main')
-    const newTeamButton = document.querySelector('#new-team')
+    const newTeamButton = document.querySelector('#new-team-button')
     let html = `
         <form onsubmit="createNewTeam; return false;">
         <label>Team Name: </label>
