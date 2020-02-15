@@ -20,6 +20,7 @@ function fetchLeague(league) {
             const theLeague = new League(leagueData)
             League.renderLeague(theLeague)
             createLeagueTeamsButton(league)
+            addLeagueEventListeners(league)
         })
 }
 

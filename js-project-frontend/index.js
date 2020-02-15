@@ -31,17 +31,37 @@ function createNewLeagueButton() {
 
 function createEditLeagueButton(league) {
     createButton('edit-league-button', 'main', 'Edit League')
-    const editLeagueButton = document.querySelector('#edit-league-button')
-    editLeagueButton.addEventListener('click', () => {
-        createEditLeagueForm(league)
-    })
+    
+    
 }
 
 function createDeleteLeagueButton(league) {
     createButton('delete-league-button', 'main', 'Delete League')
+    
+}
+
+function createLeagueTeamsButton(league) {
+    createButton('league-teams-button', 'main', 'Show Teams in This League')
+}
+
+function addLeagueEventListeners(league) {
+    const editLeagueButton = document.querySelector('#edit-league-button')
+    editLeagueButton.addEventListener('click', () => {
+        createEditLeagueForm(league)
+    })
+
     const deleteLeagueButton = document.querySelector('#delete-league-button')
     deleteLeagueButton.addEventListener('click', () => {
         League.deleteLeague(league)
+    })
+
+    const leagueTeamsButton = document.querySelector('#league-teams-button')
+    leagueTeamsButton.addEventListener('click', () => {
+        fetchLeagueTeams(league)
+    })
+    const leagueName = document.querySelector('#league_name')
+    leagueName.addEventListener('click', () => {
+        fetchLeague(league)
     })
 }
 
@@ -52,17 +72,6 @@ function createTeamsButton() {
     teamsButton.innerText = 'Teams Page'
     teamsButton.addEventListener('click', () => {
         fetchTeams()
-    })
-}
-
-function createLeagueTeamsButton(league) {
-    const leagueTeamsButton = document.createElement('button') 
-    const docMain = document.querySelector('#main')
-    leagueTeamsButton.setAttribute('id', 'league-teams-button')
-    docMain.appendChild(leagueTeamsButton) 
-    leagueTeamsButton.innerText = 'Show Teams in This League'
-    leagueTeamsButton.addEventListener('click', () => {
-        fetchLeagueTeams(league)
     })
 }
 
