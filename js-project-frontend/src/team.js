@@ -16,7 +16,7 @@ function fetchLeagueTeams(league) {
     document.querySelector('body').append(leagueTeams)
     createButton('new-team-button', 'league-teams', 'Add a New Team')
     createButton('delete-league-teams-button', 'league-teams', 'Delete This Leagues Teams')
-    addLeagueTeamsEventListeners()
+    addLeagueTeamsEventListeners(league)
     const docMain = document.querySelector('#main')
     const leagueTeamsButton = document.querySelector('#league-teams-button')
     docMain.removeChild(leagueTeamsButton)
@@ -102,15 +102,8 @@ class Team {
         })
     }
 
-    static createNewTeam() {
+    static createNewTeam(league) {
         event.preventDefault()
-        const leagueIds = document.getElementsByTagName('option')
-        let leagueId 
-        for (const league of leagueIds) {
-            if (!!league.selected) {
-                leagueId = league.value
-            }
-        }
         const newTeam = {
             id: '',
             name: document.getElementById('team-name').value,
@@ -119,7 +112,7 @@ class Team {
             stadium: document.getElementById('team-stadium').value,
             manager: document.getElementById('team-manager').value,
             year_founded: document.getElementById('team-year-founded').value,
-            league_id: leagueId
+            league_id: league.id
         }
         
         fetch(teamsUrl, {
@@ -135,7 +128,7 @@ class Team {
         })
         .then(() => {
             clearForm()
-            fetchTeams()   
+            fetchLeague(league)   
         })
     }
 

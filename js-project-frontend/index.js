@@ -56,10 +56,10 @@ function addLeagueEventListeners(league) {
     })  
 }
 
-function addLeagueTeamsEventListeners() {
+function addLeagueTeamsEventListeners(league) {
     const newTeamButton = document.querySelector('#new-team-button')
     newTeamButton.addEventListener('click', () => {
-        createNewTeamForm()
+        createNewTeamForm(league)
     })
 
     const deleteLeagueTeams = document.querySelector('#delete-league-teams-button')
@@ -149,21 +149,7 @@ function createEditLeagueForm(league) {
     })    
 }
 
-function fetchLeagueIds() {
-    fetch(leaguesUrl) 
-        .then(response => response.json())
-        .then((leagueData) => {
-            const selectMenu = document.querySelector('#leagues')
-            return leagueData.map(league => {
-                const option = `
-                <option value=${league.id}>${league.name}</option>
-                `
-                selectMenu.innerHTML += option
-            })
-        })
-}
-
-function createNewTeamForm() {
+function createNewTeamForm(league) {
     const deleteTeamsButton = document.querySelector('#delete-league-teams-button')
     const newTeamForm = document.createElement('form')
     const leagueTeams = document.querySelector('#league-teams')
@@ -175,18 +161,13 @@ function createNewTeamForm() {
         html += `<label>Team ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
         <input type="text" id="team-${property}"><br>`
     }
-     html += `<label>League: </label>
-        <select id="leagues">
-        </select><br>
-        <input type="submit" value="Add a new Team">`
-    
-    fetchLeagueIds()
+     html += `<input type="submit" value="Add a new Team">`
     deleteTeamsButton.remove()
     newTeamButton.remove()
     newTeamForm.innerHTML = html
     leagueTeams.prepend(newTeamForm)
     newTeamForm.addEventListener('submit', () => {
-        Team.createNewTeam()
+        Team.createNewTeam(league)
     })
     
 }
