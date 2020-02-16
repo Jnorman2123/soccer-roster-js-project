@@ -15,7 +15,6 @@ function fetchLeagueTeams(league) {
     leagueTeams.setAttribute('id', 'league-teams')
     document.querySelector('body').append(leagueTeams)
     createButton('new-team-button', 'league-teams', 'Add a New Team')
-    createButton('delete-league-teams-button', 'league-teams', 'Delete This Leagues Teams')
     addLeagueTeamsEventListeners(league)
     const docMain = document.querySelector('#main')
     const leagueTeamsButton = document.querySelector('#league-teams-button')

@@ -40,11 +40,6 @@ function addLeagueEventListeners(league) {
         createEditLeagueForm(league)
     })
 
-    const deleteLeagueButton = document.querySelector('#delete-league-button')
-    deleteLeagueButton.addEventListener('click', () => {
-        League.deleteLeague(league)
-    })
-
     const leagueTeamsButton = document.querySelector('#league-teams-button')
     leagueTeamsButton.addEventListener('click', () => {
         fetchLeagueTeams(league)
@@ -60,11 +55,6 @@ function addLeagueTeamsEventListeners(league) {
     const newTeamButton = document.querySelector('#new-team-button')
     newTeamButton.addEventListener('click', () => {
         createNewTeamForm(league)
-    })
-
-    const deleteLeagueTeams = document.querySelector('#delete-league-teams-button')
-    deleteLeagueTeams.addEventListener('click', () => {
-        League.deleteLeagueTeams(league)
     })
 }
 
@@ -150,7 +140,6 @@ function createEditLeagueForm(league) {
 }
 
 function createNewTeamForm(league) {
-    const deleteTeamsButton = document.querySelector('#delete-league-teams-button')
     const newTeamForm = document.createElement('form')
     const leagueTeams = document.querySelector('#league-teams')
     const newTeamButton = document.querySelector('#new-team-button')
@@ -162,7 +151,6 @@ function createNewTeamForm(league) {
         <input type="text" id="team-${property}"><br>`
     }
      html += `<input type="submit" value="Add a new Team">`
-    deleteTeamsButton.remove()
     newTeamButton.remove()
     newTeamForm.innerHTML = html
     leagueTeams.prepend(newTeamForm)
@@ -183,16 +171,11 @@ function createEditTeamForm(team) {
             <input type="text" id="team-${property}" value="${team[property]}"><br>`
         }
     }
-    html += `<label>League: </label>
-        <select id="leagues">
-        </select><br>
-        <input type="submit" value="Edit Team">`
-
-    fetchLeagueIds()   
+    html += `<input type="submit" value="Edit Team">`
     docMain.innerHTML = ''
     editTeamForm.innerHTML = html
     docMain.append(editTeamForm)
-    team.renderTeam()
+    team.renderTeam('main')
     editTeamForm.addEventListener('submit', () => {
         Team.editTeam(team)
     })
