@@ -52,6 +52,7 @@ function addLeagueEventListeners(league) {
         document.querySelector('body').append(leagueTeams)
         createButton('new-team-button', 'league-teams', 'Add a New Team')
         createButton('delete-league-teams-button', 'league-teams', 'Delete This Leagues Teams')
+        addLeagueTeamsEventListeners()
         fetchLeagueTeams(league)
     })
 
@@ -161,8 +162,9 @@ function fetchLeagueIds() {
 }
 
 function createNewTeamForm() {
+    const deleteTeamsButton = document.querySelector('#delete-league-teams-button')
     const newTeamForm = document.createElement('form')
-    const docMain = document.querySelector('#main')
+    const leagueTeams = document.querySelector('#league-teams')
     const newTeamButton = document.querySelector('#new-team-button')
     const properties = ['name', 'logo', 'nickname', 'stadium', 'manager', 'year-founded']
     let html = ''
@@ -177,9 +179,10 @@ function createNewTeamForm() {
         <input type="submit" value="Add a new Team">`
     
     fetchLeagueIds()
+    deleteTeamsButton.remove()
     newTeamButton.remove()
     newTeamForm.innerHTML = html
-    docMain.append(newTeamForm)
+    leagueTeams.prepend(newTeamForm)
     newTeamForm.addEventListener('submit', () => {
         Team.createNewTeam()
     })
