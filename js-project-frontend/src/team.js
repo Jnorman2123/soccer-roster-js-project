@@ -48,11 +48,12 @@ class Team {
         this.nickname = team.nickname
         this.stadium = team.stadium
         this.manager = team.manager
-        this.year_founded = team.year_founded
+        this.year = team.year_founded
         this.league_id = team.league_id
     }
 
     renderTeam() {
+        
         const docMain = document.querySelector('#main')
         const teamCard = document.createElement('div')
         const teamName = document.createElement('h2')
@@ -60,7 +61,7 @@ class Team {
         const teamNickname = document.createElement('h3')
         const teamStadium = document.createElement('h4')
         const teamManager = document.createElement('p')
-        const teamYearFounded = document.createElement('p')
+        const teamYear = document.createElement('p')
         docMain.appendChild(teamCard)
         teamCard.setAttribute('id', 'team_card')
         teamName.setAttribute('id', 'team_name')
@@ -68,19 +69,19 @@ class Team {
         teamNickname.setAttribute('id', 'team_nickname')
         teamStadium.setAttribute('id', 'team_stadium')
         teamManager.setAttribute('id', 'team_manager')
-        teamYearFounded.setAttribute('id', 'team_year_founded') 
+        teamYear.setAttribute('id', 'team_year') 
         teamCard.appendChild(teamName)
         teamCard.appendChild(teamLogo)
         teamCard.appendChild(teamNickname)
         teamCard.appendChild(teamStadium)
         teamCard.appendChild(teamManager)
-        teamCard.appendChild(teamYearFounded)
+        teamCard.appendChild(teamYear)
         teamName.innerText = this.name
         teamLogo.src = this.logo
         teamNickname.innerText = this.nickname
         teamStadium.innerText = this.stadium
         teamManager.innerText = this.manager 
-        teamYearFounded.innerText = this.year_founded
+        teamYear.innerText = this.year
         teamName.addEventListener('click', () => {
             fetchTeam(this)
         })
@@ -109,7 +110,7 @@ class Team {
             nickname: document.getElementById('team_nickname').value,
             stadium: document.getElementById('team_stadium').value,
             manager: document.getElementById('team_manager').value,
-            year_founded: document.getElementById('team_year_founded').value,
+            year: document.getElementById('team_year').value,
             league_id: leagueId
         }
         
@@ -144,7 +145,7 @@ class Team {
         team.nickname = document.getElementById('team_nickname').value
         team.stadium = document.getElementById('team_stadium').value
         team.manager = document.getElementById('team_manager').value
-        team.year_founded = document.getElementById('team_year_founded').value
+        team.year = document.getElementById('team_year').value
         team.league_id = leagueId
         const editedTeam = new Team(team)
 
