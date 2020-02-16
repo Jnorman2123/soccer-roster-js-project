@@ -1,7 +1,6 @@
 function fetchTeams() {
     const docMain = document.querySelector('#main')
     docMain.innerHTML = ''
-    createNewTeamButton()
     fetch(teamsUrl)
         .then(response => response.json())
         .then((teamData) => {
@@ -19,7 +18,7 @@ function fetchLeagueTeams(league) {
             return teamData.map(team => {
                 if (league.id === team.league_id) {
                     const theTeam = new Team(team)
-                    theTeam.renderTeam()
+                    theTeam.renderTeam('league-teams')
                 }
             })
         })
@@ -36,7 +35,7 @@ function fetchTeam(team) {
             createButton('edit-team-button', 'main', 'Edit Team')
             createButton('delete-team-button', 'main', 'Delete Team')
             addTeamEventListeners(theTeam)
-            theTeam.renderTeam()
+            theTeam.renderTeam('main')
         })
 }
 
@@ -52,9 +51,9 @@ class Team {
         this.league_id = team.league_id
     }
 
-    renderTeam() {
+    renderTeam(divId) {
 
-        const docMain = document.querySelector('#main')
+        const div = document.querySelector(`#${divId}`)
         const teamCard = document.createElement('div')
         const teamName = document.createElement('h2')
         const teamLogo = document.createElement('img')
@@ -62,7 +61,7 @@ class Team {
         const teamStadium = document.createElement('h4')
         const teamManager = document.createElement('p')
         const teamYearFounded = document.createElement('p')
-        docMain.appendChild(teamCard)
+        div.appendChild(teamCard)
         teamCard.setAttribute('id', 'team-card')
         teamName.setAttribute('id', 'team-name')
         teamLogo.setAttribute('id', 'team-logo')
@@ -90,7 +89,7 @@ class Team {
     static renderAllTeams(teams) {
         return teams.map(team => {
             const newTeam = new Team(team)
-            newTeam.renderTeam()
+            newTeam.renderTeam('main')
         })
     }
 

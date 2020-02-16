@@ -1,4 +1,9 @@
 function fetchLeagues() {
+    const leagueTeam = document.querySelector('#league-teams')
+    const docBody = document.querySelector('body')
+    if (!!leagueTeam) {
+        docBody.removeChild(leagueTeam)
+    }
     const docMain = document.querySelector('#main')
     docMain.innerHTML = ''
     createNewLeagueButton()
