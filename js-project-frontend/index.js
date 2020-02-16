@@ -49,7 +49,7 @@ function addLeagueEventListeners(league) {
     leagueTeamsButton.addEventListener('click', () => {
         fetchLeagueTeams(league)
     })
-    const leagueName = document.querySelector('#league_name')
+    const leagueName = document.querySelector('#league-name')
     leagueName.addEventListener('click', () => {
         fetchLeague(league)
     })
@@ -101,7 +101,7 @@ function createNewLeagueForm() {
     html += `<form onsubmit="createNewLeague; return false;">`
     for (const property of properties) {
         html += `<label>League ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
-        <input type="text" id="league_${property}"><br>`
+        <input type="text" id="league-${property}"><br>`
     }
     html += `<input type="submit" value="Add a new League">`
     
@@ -123,7 +123,7 @@ function createEditLeagueForm(league) {
     for (const property in league) {
         if (property != 'id') {
             html += `<label>League ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
-            <input type="text" id="league_${property}" value="${league[property]}"><br>`
+            <input type="text" id="league-${property}" value="${league[property]}"><br>`
         }
     }
     html += `<input type="submit" value="Edit League">`
@@ -154,12 +154,12 @@ function createNewTeamForm() {
     const newTeamForm = document.createElement('form')
     const docMain = document.querySelector('#main')
     const newTeamButton = document.querySelector('#new-team-button')
-    const properties = ['name', 'logo', 'nickname', 'stadium', 'manager', 'year_founded']
+    const properties = ['name', 'logo', 'nickname', 'stadium', 'manager', 'year-founded']
     let html = ''
     html += `<form onsubmit="createNewTeam; return false;">`
     for (property of properties) {
         html += `<label>Team ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
-        <input type="text" id="team_${property}"><br>`
+        <input type="text" id="team-${property}"><br>`
     }
      html += `<label>League: </label>
         <select id="leagues">
@@ -184,7 +184,7 @@ function createEditTeamForm(team) {
     for (const property in team) {
         if (property != 'id' && property != 'league_id') {
             html += `<label>Team ${property.charAt(0).toUpperCase() + property.slice(1)}: </label>
-            <input type="text" id="team_${property}" value="${team[property]}"><br>`
+            <input type="text" id="team-${property}" value="${team[property]}"><br>`
         }
     }
     html += `<label>League: </label>

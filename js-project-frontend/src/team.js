@@ -48,7 +48,7 @@ class Team {
         this.nickname = team.nickname
         this.stadium = team.stadium
         this.manager = team.manager
-        this.year = team.year_founded
+        this.year_founded = team.year_founded
         this.league_id = team.league_id
     }
 
@@ -110,7 +110,7 @@ class Team {
             nickname: document.getElementById('team-nickname').value,
             stadium: document.getElementById('team-stadium').value,
             manager: document.getElementById('team-manager').value,
-            yearFounded: document.getElementById('team-year-founded').value,
+            year_founded: document.getElementById('team-year-founded').value,
             league_id: leagueId
         }
         
@@ -145,7 +145,7 @@ class Team {
         team.nickname = document.getElementById('team-nickname').value
         team.stadium = document.getElementById('team-stadium').value
         team.manager = document.getElementById('team-manager').value
-        team.yearFounded = document.getElementById('team-year-founded').value
+        team.year_founded = document.getElementById('team-year-founded').value
         team.league_id = leagueId
         const editedTeam = new Team(team)
 

@@ -40,11 +40,11 @@ class League {
         const leagueLogo = document.createElement('img')
         const leagueCountry = document.createElement('h2')
         const leagueDivision = document.createElement('h4')
-        leagueCard.setAttribute('id', 'league_card')
-        leagueName.setAttribute('id', 'league_name')
-        leagueLogo.setAttribute('id', 'league_logo')
-        leagueCountry.setAttribute('id', 'league_country')
-        leagueDivision.setAttribute('id', 'league_division')
+        leagueCard.setAttribute('id', 'league-card')
+        leagueName.setAttribute('id', 'league-name')
+        leagueLogo.setAttribute('id', 'league-logo')
+        leagueCountry.setAttribute('id', 'league-country')
+        leagueDivision.setAttribute('id', 'league-division')
         docMain.appendChild(leagueCard)
         leagueCard.appendChild(leagueName)
         leagueCard.appendChild(leagueLogo)
@@ -70,10 +70,10 @@ class League {
         event.preventDefault()
         const league = {
             id: '',
-            name: document.getElementById('league_name').value,
-            logo: document.getElementById('league_logo').value,
-            country: document.getElementById('league_country').value,
-            division: document.getElementById('league_division').value
+            name: document.getElementById('league-name').value,
+            logo: document.getElementById('league-logo').value,
+            country: document.getElementById('league-country').value,
+            division: document.getElementById('league-division').value
         }
         fetch(leaguesUrl, {
             method: 'POST',
@@ -94,10 +94,10 @@ class League {
 
     static editLeague(league) {
         event.preventDefault()
-        league.name = document.getElementById('league_name').value
-        league.logo = document.getElementById('league_logo').value
-        league.country = document.getElementById('league_country').value
-        league.division = document.getElementById('league_division').value
+        league.name = document.getElementById('league-name').value
+        league.logo = document.getElementById('league-logo').value
+        league.country = document.getElementById('league-country').value
+        league.division = document.getElementById('league-division').value
 
         fetch(leaguesUrl + `/${league.id}`, {
             method: 'PATCH',
@@ -122,5 +122,19 @@ class League {
         })
         .then(response => response.json())
         .then(fetchLeagues)
-    }  
+    }
+    
+    static deleteLeagueTeams(league) {
+        return fetch(teamsUrl)
+            .then(response => response.json())
+            .then(teams => {
+                for (const team of teams) {
+                    if (team.league_id === league.id) {
+                        return fetch(teamsUrl + `/${team.id}`, {
+                            method: 'DELETE'
+                        })
+                    }
+                }
+            }) 
+    }
 }
