@@ -154,7 +154,7 @@ function createNewTeamForm() {
     const newTeamForm = document.createElement('form')
     const docMain = document.querySelector('#main')
     const newTeamButton = document.querySelector('#new-team-button')
-    const properties = ['name', 'logo', 'nickname', 'stadium', 'manager', 'year']
+    const properties = ['name', 'logo', 'nickname', 'stadium', 'manager', 'year_founded']
     let html = ''
     html += `<form onsubmit="createNewTeam; return false;">`
     for (property of properties) {

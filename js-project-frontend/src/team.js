@@ -53,7 +53,7 @@ class Team {
     }
 
     renderTeam() {
-        
+
         const docMain = document.querySelector('#main')
         const teamCard = document.createElement('div')
         const teamName = document.createElement('h2')
@@ -61,27 +61,27 @@ class Team {
         const teamNickname = document.createElement('h3')
         const teamStadium = document.createElement('h4')
         const teamManager = document.createElement('p')
-        const teamYear = document.createElement('p')
+        const teamYearFounded = document.createElement('p')
         docMain.appendChild(teamCard)
-        teamCard.setAttribute('id', 'team_card')
-        teamName.setAttribute('id', 'team_name')
-        teamLogo.setAttribute('id', 'team_logo')
-        teamNickname.setAttribute('id', 'team_nickname')
-        teamStadium.setAttribute('id', 'team_stadium')
-        teamManager.setAttribute('id', 'team_manager')
-        teamYear.setAttribute('id', 'team_year') 
+        teamCard.setAttribute('id', 'team-card')
+        teamName.setAttribute('id', 'team-name')
+        teamLogo.setAttribute('id', 'team-logo')
+        teamNickname.setAttribute('id', 'team-nickname')
+        teamStadium.setAttribute('id', 'team-stadium')
+        teamManager.setAttribute('id', 'team-manager')
+        teamYearFounded.setAttribute('id', 'team-year-founded') 
         teamCard.appendChild(teamName)
         teamCard.appendChild(teamLogo)
         teamCard.appendChild(teamNickname)
         teamCard.appendChild(teamStadium)
         teamCard.appendChild(teamManager)
-        teamCard.appendChild(teamYear)
+        teamCard.appendChild(teamYearFounded)
         teamName.innerText = this.name
         teamLogo.src = this.logo
         teamNickname.innerText = this.nickname
         teamStadium.innerText = this.stadium
         teamManager.innerText = this.manager 
-        teamYear.innerText = this.year
+        teamYearFounded.innerText = this.year_founded
         teamName.addEventListener('click', () => {
             fetchTeam(this)
         })
@@ -105,12 +105,12 @@ class Team {
         }
         const newTeam = {
             id: '',
-            name: document.getElementById('team_name').value,
-            logo: document.getElementById('team_logo').value,
-            nickname: document.getElementById('team_nickname').value,
-            stadium: document.getElementById('team_stadium').value,
-            manager: document.getElementById('team_manager').value,
-            year: document.getElementById('team_year').value,
+            name: document.getElementById('team-name').value,
+            logo: document.getElementById('team-logo').value,
+            nickname: document.getElementById('team-nickname').value,
+            stadium: document.getElementById('team-stadium').value,
+            manager: document.getElementById('team-manager').value,
+            yearFounded: document.getElementById('team-year-founded').value,
             league_id: leagueId
         }
         
@@ -140,12 +140,12 @@ class Team {
                 leagueId = league.value
             }
         }
-        team.name = document.getElementById('team_name').value
-        team.logo = document.getElementById('team_logo').value
-        team.nickname = document.getElementById('team_nickname').value
-        team.stadium = document.getElementById('team_stadium').value
-        team.manager = document.getElementById('team_manager').value
-        team.year = document.getElementById('team_year').value
+        team.name = document.getElementById('team-name').value
+        team.logo = document.getElementById('team-logo').value
+        team.nickname = document.getElementById('team-nickname').value
+        team.stadium = document.getElementById('team-stadium').value
+        team.manager = document.getElementById('team-manager').value
+        team.yearFounded = document.getElementById('team-year-founded').value
         team.league_id = leagueId
         const editedTeam = new Team(team)
 
