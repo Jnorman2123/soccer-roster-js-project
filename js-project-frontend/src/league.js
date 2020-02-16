@@ -1,9 +1,5 @@
 function fetchLeagues() {
-    const leagueTeam = document.querySelector('#league-teams')
-    const docBody = document.querySelector('body')
-    if (!!leagueTeam) {
-        docBody.removeChild(leagueTeam)
-    }
+    removeLeagueTeams()
     const docMain = document.querySelector('#main')
     docMain.innerHTML = ''
     createNewLeagueButton()
@@ -15,6 +11,7 @@ function fetchLeagues() {
 }
 
 function fetchLeague(league) {
+    removeLeagueTeams()
     fetch(leaguesUrl + `/${league.id}`)
         .then(response => response.json())
         .then(leagueData => {

@@ -1,4 +1,5 @@
 function fetchTeams() {
+    removeLeagueTeams()
     const docMain = document.querySelector('#main')
     docMain.innerHTML = ''
     fetch(teamsUrl)
@@ -9,6 +10,13 @@ function fetchTeams() {
 }
 
 function fetchLeagueTeams(league) {
+    removeLeagueTeams()
+    const leagueTeams = document.createElement('div')
+    leagueTeams.setAttribute('id', 'league-teams')
+    document.querySelector('body').append(leagueTeams)
+    createButton('new-team-button', 'league-teams', 'Add a New Team')
+    createButton('delete-league-teams-button', 'league-teams', 'Delete This Leagues Teams')
+    addLeagueTeamsEventListeners()
     const docMain = document.querySelector('#main')
     const leagueTeamsButton = document.querySelector('#league-teams-button')
     docMain.removeChild(leagueTeamsButton)
@@ -25,6 +33,7 @@ function fetchLeagueTeams(league) {
 }
 
 function fetchTeam(team) {
+    removeLeagueTeams()
     fetch(teamsUrl + `/${team.id}`)
         .then(response => response.json())
         .then(teamData => {

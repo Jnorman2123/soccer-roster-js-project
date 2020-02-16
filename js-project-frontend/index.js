@@ -47,12 +47,6 @@ function addLeagueEventListeners(league) {
 
     const leagueTeamsButton = document.querySelector('#league-teams-button')
     leagueTeamsButton.addEventListener('click', () => {
-        const leagueTeams = document.createElement('div')
-        leagueTeams.setAttribute('id', 'league-teams')
-        document.querySelector('body').append(leagueTeams)
-        createButton('new-team-button', 'league-teams', 'Add a New Team')
-        createButton('delete-league-teams-button', 'league-teams', 'Delete This Leagues Teams')
-        addLeagueTeamsEventListeners()
         fetchLeagueTeams(league)
     })
 
@@ -101,6 +95,14 @@ function addTeamEventListeners(team) {
     deleteTeamButton.addEventListener('click', () => {
         team.deleteTeam()
     })
+}
+
+function removeLeagueTeams() {
+    const leagueTeam = document.querySelector('#league-teams')
+    const docBody = document.querySelector('body')
+    if (!!leagueTeam) {
+        docBody.removeChild(leagueTeam)
+    }
 }
 
 function createNewLeagueForm() {
