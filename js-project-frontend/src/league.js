@@ -3,6 +3,7 @@ function fetchLeagues() {
     const docMain = document.querySelector('#main')
     docMain.innerHTML = ''
     createNewLeagueButton()
+    createLeagueTable()
     fetch(leaguesUrl)
         .then(response => response.json())
         .then((leagueData) => {
@@ -18,6 +19,7 @@ function fetchLeague(league) {
             const docMain = document.querySelector('#main')
             docMain.innerHTML = ''
             createButton('edit-league-button', 'main', 'Edit League')
+            createLeagueTable()
             const theLeague = new League(leagueData)
             League.renderLeague(theLeague)
             createButton('league-teams-button', 'main', 'Show Teams in This League')
@@ -35,7 +37,7 @@ class League {
     }
 
     static renderLeague(league) {
-        const docMain = document.querySelector('#main')
+        const leagueTable = document.querySelector('#league-table')
         const leagueCard = document.createElement('div')
         const leagueName = document.createElement('h1')
         const leagueLogo = document.createElement('img')
@@ -46,7 +48,7 @@ class League {
         leagueLogo.setAttribute('id', 'league-logo')
         leagueCountry.setAttribute('id', 'league-country')
         leagueDivision.setAttribute('id', 'league-division')
-        docMain.appendChild(leagueCard)
+        leagueTable.appendChild(leagueCard)
         leagueCard.appendChild(leagueName)
         leagueCard.appendChild(leagueLogo)
         leagueCard.appendChild(leagueCountry)
