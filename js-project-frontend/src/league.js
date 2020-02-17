@@ -39,25 +39,28 @@ class League {
     static renderLeague(league) {
         const leagueTable = document.querySelector('#league-table')
         const leagueCard = document.createElement('div')
-        const leagueName = document.createElement('h1')
         const leagueLogo = document.createElement('img')
+        const leagueInfo = document.createElement('div')
+        const leagueName = document.createElement('h1')
         const leagueCountry = document.createElement('h2')
         const leagueDivision = document.createElement('h4')
         leagueCard.setAttribute('id', 'league-card')
-        leagueName.setAttribute('id', 'league-name')
         leagueLogo.setAttribute('id', 'league-logo')
+        leagueInfo.setAttribute('id', 'league-info')
+        leagueName.setAttribute('id', 'league-name')
         leagueCountry.setAttribute('id', 'league-country')
         leagueDivision.setAttribute('id', 'league-division')
         leagueTable.appendChild(leagueCard)
-        leagueCard.appendChild(leagueName)
         leagueCard.appendChild(leagueLogo)
-        leagueCard.appendChild(leagueCountry)
-        leagueCard.appendChild(leagueDivision)
-        leagueName.innerText = league.name
+        leagueCard.appendChild(leagueInfo)
+        leagueInfo.appendChild(leagueName)
+        leagueInfo.appendChild(leagueCountry)
+        leagueInfo.appendChild(leagueDivision)
         leagueLogo.src = league.logo
+        leagueName.innerText = league.name
         leagueCountry.innerText = league.country
         leagueDivision.innerText = league.division
-        leagueName.addEventListener('click', () => {
+        leagueCard.addEventListener('click', () => {
             fetchLeague(league)
         })
     }
@@ -73,10 +76,10 @@ class League {
         event.preventDefault()
         const league = {
             id: '',
-            name: document.getElementById('league-name').value,
-            logo: document.getElementById('league-logo').value,
-            country: document.getElementById('league-country').value,
-            division: document.getElementById('league-division').value
+            name: document.querySelector('input[name="league-name"]').value,
+            logo: document.querySelector('input[name="league-logo"]').value,
+            country: document.querySelector('input[name="league-country"]').value,
+            division: document.querySelector('input[name="league-division"]').value
         }
         fetch(leaguesUrl, {
             method: 'POST',
@@ -97,10 +100,10 @@ class League {
 
     static editLeague(league) {
         event.preventDefault()
-        league.name = document.getElementById('league-name').value
-        league.logo = document.getElementById('league-logo').value
-        league.country = document.getElementById('league-country').value
-        league.division = document.getElementById('league-division').value
+        league.name = document.querySelector('input[name="league-name"]').value
+        league.logo = document.querySelector('input[name="league-logo"]').value
+        league.country = document.querySelector('input[name="league-country"]').value
+        league.division = document.querySelector('input[name="league-division"]').value
 
         fetch(leaguesUrl + `/${league.id}`, {
             method: 'PATCH',
