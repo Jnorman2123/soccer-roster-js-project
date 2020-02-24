@@ -2,6 +2,8 @@ function fetchTeams() {
     removeLeagueTeams()
     const docMain = document.querySelector('#main')
     docMain.innerHTML = ''
+    createButton('order-teams', 'main', 'Reorder Teams')
+    addReorderEventListener()
     createTeamTable()
     fetch(teamsUrl)
         .then(response => response.json())
@@ -140,6 +142,9 @@ class Team {
             }
         })
         .then(response => {
+            if (!response.ok) {
+                throw response 
+            }
             return response.json()
         })
         .then(() => {
@@ -152,7 +157,7 @@ class Team {
     }
 
     editTeam() {
-        event.preventDefault()
+        
         this.name = document.querySelector('input[name="team_name"]').value
         this.logo = document.querySelector('input[name="team_logo"]').value
         this.nickname = document.querySelector('input[name="team_nickname"]').value

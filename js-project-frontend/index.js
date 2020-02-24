@@ -104,6 +104,26 @@ const addTeamEventListeners = (team) =>  {
     deleteTeamButton.addEventListener('click', () => {
         team.deleteTeam()
     })
+
+    
+}
+
+function addReorderEventListener() {
+    const reorderTeams = document.querySelector('#order-teams')
+    
+    reorderTeams.addEventListener('click', () => {
+        fetch(teamsUrl)
+        .then(response => response.json())
+        .then((teamData) => {
+            const teamTable = document.querySelector('#team-table')
+            teamTable.innerHTML = ''
+            const orderedTeams = teamData.sort((a,b) => (a.name > b.name) ? 1 : -1)
+            Team.renderAllTeams(orderedTeams)
+        })
+        .catch( (e) => {
+            catchMessage(e)
+        })
+    })
 }
 
 function removeLeagueTeams() {
@@ -197,7 +217,8 @@ function createEditTeamForm(team) {
     docMain.append(editTeamForm)
     createTeamTable()
     team.renderTeam('main')
-    editTeamForm.addEventListener('submit', () => {
+    editTeamForm.addEventListener('submit', (event) => {
+        event.preventDefault()
         team.editTeam()
     })
 }
