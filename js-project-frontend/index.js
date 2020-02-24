@@ -206,3 +206,8 @@ function clearForm() {
     let form = document.querySelector('form')
     form.remove()
 }
+
+function catchMessage(e) {
+    alert("something went wrong!");
+    console.log(e.message)
+}

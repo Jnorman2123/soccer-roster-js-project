@@ -8,6 +8,9 @@ function fetchTeams() {
         .then((teamData) => {
             Team.renderAllTeams(teamData)
         })
+        .catch( (e) => {
+            catchMessage(e)
+        })
 }
 
 function fetchLeagueTeams(league) {
@@ -31,6 +34,9 @@ function fetchLeagueTeams(league) {
                 }
             })
         })
+        .catch( (e) => {
+            catchMessage(e)
+        })
 }
 
 function fetchTeam(team) {
@@ -47,6 +53,9 @@ function fetchTeam(team) {
             createTeamTable()
             addTeamEventListeners(theTeam)
             theTeam.renderTeam('main')
+        })
+        .catch( (e) => {
+            catchMessage(e)
         })
 }
 
@@ -137,6 +146,9 @@ class Team {
             clearForm()
             fetchLeague(league)   
         })
+        .catch( (e) => {
+            catchMessage(e)
+        })
     }
 
     editTeam() {
@@ -167,6 +179,9 @@ class Team {
                 .then(teamData => {
                     return fetchTeam(teamData)
                 })   
+        })
+        .catch( (e) => {
+            catchMessage(e)
         })
     }
 

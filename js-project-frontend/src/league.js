@@ -8,6 +8,9 @@ function fetchLeagues() {
         .then(response => response.json())
         .then((leagueData) => {
             League.renderAllLeagues(leagueData)
+        })
+        .catch( (e) => {
+            catchMessage(e)
         })    
 }
 
@@ -24,6 +27,9 @@ function fetchLeague(league) {
             theLeague.renderLeague()
             createButton('league-teams-button', 'main', 'Show Teams in This League')
             addLeagueEventListeners(league)
+        })
+        .catch( (e) => {
+            catchMessage(e)
         })
 }
 
@@ -96,6 +102,9 @@ class League {
             clearForm()
             fetchLeagues()   
         })
+        .catch( (e) => {
+            catchMessage(e)
+        })
     }
 
     editLeague() {
@@ -119,6 +128,9 @@ class League {
         .then(() => {
             clearForm()
             fetchLeague(this)   
+        })
+        .catch( (e) => {
+            catchMessage(e)
         })
     }
 }
