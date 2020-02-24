@@ -113,12 +113,12 @@ class Team {
         event.preventDefault()
         const newTeam = {
             id: '',
-            name: document.querySelector('input[name="team-name"]').value,
-            logo: document.querySelector('input[name="team-logo"]').value,
-            nickname: document.querySelector('input[name="team-nickname"]').value,
-            stadium: document.querySelector('input[name="team-stadium"]').value,
-            manager: document.querySelector('input[name="team-manager"]').value,
-            year_founded: document.querySelector('input[name="team-year-founded"]').value,
+            name: document.querySelector('input[name="team_name"]').value,
+            logo: document.querySelector('input[name="team_logo"]').value,
+            nickname: document.querySelector('input[name="team_nickname"]').value,
+            stadium: document.querySelector('input[name="team_stadium"]').value,
+            manager: document.querySelector('input[name="team_manager"]').value,
+            year_founded: document.querySelector('input[name="team_year_founded"]').value,
             league_id: league.id
         }
         
@@ -139,25 +139,17 @@ class Team {
         })
     }
 
-    static editTeam(team) {
+    editTeam() {
         event.preventDefault()
-        const leagueIds = document.getElementsByTagName('option')
-        let leagueId 
-        for (const league of leagueIds) {
-            if (!!league.selected) {
-                leagueId = league.value
-            }
-        }
-        team.name = document.querySelector('input[name="team-name"]').value,
-        team.logo = document.querySelector('input[name="team-logo"]').value,
-        team.nickname = document.querySelector('input[name="team-nickname"]').value,
-        team.stadium = document.querySelector('input[name="team-stadium"]').value,
-        team.manager = document.querySelector('input[name="team-manager"]').value,
-        team.year_founded = document.querySelector('input[name="team-year-founded"]').value,
-        team.league_id = leagueId
-        const editedTeam = new Team(team)
+        this.name = document.querySelector('input[name="team_name"]').value
+        this.logo = document.querySelector('input[name="team_logo"]').value
+        this.nickname = document.querySelector('input[name="team_nickname"]').value
+        this.stadium = document.querySelector('input[name="team_stadium"]').value
+        this.manager = document.querySelector('input[name="team_manager"]').value
+        this.year_founded = document.querySelector('input[name="team_year_founded"]').value
+        const editedTeam = new Team(this)
 
-        fetch(teamsUrl + `/${team.id}`, {
+        fetch(teamsUrl + `/${this.id}`, {
             method: 'PATCH',
             body: JSON.stringify(editedTeam),
             headers: {

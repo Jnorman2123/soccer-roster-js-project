@@ -64,6 +64,10 @@ function addLeagueTeamsEventListeners(league) {
     newTeamButton.addEventListener('click', () => {
         createNewTeamForm(league)
     })
+    const leagueCard = document.querySelector('#league-card')
+    leagueCard.addEventListener('click', () => {
+        fetchLeague(league)
+    })
 }
 
 function createTeamLeagueButton(team) {
@@ -85,7 +89,7 @@ function createTeamTable() {
     docMain.appendChild(teamTable)
 }
 
-function addTeamEventListeners(team) {
+const addTeamEventListeners = (team) =>  {
     const teamLeagueButton = document.querySelector('#team-league-button')
     teamLeagueButton.addEventListener('click', () => {
         fetchLeague(teamLeague)
@@ -149,9 +153,9 @@ function createEditLeagueForm(league) {
     editLeagueForm.innerHTML = html
     docMain.append(editLeagueForm)
     createLeagueTable()
-    League.renderLeague(league)
+    league.renderLeague()
     editLeagueForm.addEventListener('submit', () => {
-        League.editLeague(league)
+        league.editLeague()
     })    
 }
 
@@ -159,12 +163,12 @@ function createNewTeamForm(league) {
     const newTeamForm = document.createElement('form')
     const leagueTeams = document.querySelector('#league-teams')
     const newTeamButton = document.querySelector('#new-team-button')
-    const properties = ['name', 'logo', 'nickname', 'stadium', 'manager', 'year-founded']
+    const properties = ['name', 'logo', 'nickname', 'stadium', 'manager', 'year_founded']
     let html = ''
     html += `<form onsubmit="createNewTeam; return false;">`
     for (property of properties) {
         html += `<label>Team ${property.charAt(0).toUpperCase() + property.slice(1)}: </label><br>
-        <input type="text" name="team-${property}"><br>`
+        <input type="text" name="team_${property}"><br>`
     }
      html += `<input type="submit" value="Add a new Team">`
     newTeamButton.remove()
@@ -184,16 +188,17 @@ function createEditTeamForm(team) {
     for (const property in team) {
         if (property != 'id' && property != 'league_id') {
             html += `<label>Team ${property.charAt(0).toUpperCase() + property.slice(1)}: </label><br>
-            <input type="text" name="team-${property}" value="${team[property]}"><br>`
+            <input type="text" name="team_${property}" value="${team[property]}"><br>`
         }
     }
     html += `<input type="submit" value="Edit Team">`
     docMain.innerHTML = ''
     editTeamForm.innerHTML = html
     docMain.append(editTeamForm)
+    createTeamTable()
     team.renderTeam('main')
     editTeamForm.addEventListener('submit', () => {
-        Team.editTeam(team)
+        team.editTeam()
     })
 }
 

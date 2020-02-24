@@ -21,7 +21,7 @@ function fetchLeague(league) {
             createButton('edit-league-button', 'main', 'Edit League')
             createLeagueTable()
             const theLeague = new League(leagueData)
-            League.renderLeague(theLeague)
+            theLeague.renderLeague()
             createButton('league-teams-button', 'main', 'Show Teams in This League')
             addLeagueEventListeners(league)
         })
@@ -36,7 +36,7 @@ class League {
         this.division = league.division
     }
 
-    static renderLeague(league) {
+    renderLeague() {
         const leagueTable = document.querySelector('#league-table')
         const leagueCard = document.createElement('div')
         const leagueLogo = document.createElement('img')
@@ -56,19 +56,19 @@ class League {
         leagueInfo.appendChild(leagueName)
         leagueInfo.appendChild(leagueCountry)
         leagueInfo.appendChild(leagueDivision)
-        leagueLogo.src = league.logo
-        leagueName.innerText = league.name
-        leagueCountry.innerText = league.country
-        leagueDivision.innerText = league.division
+        leagueLogo.src = this.logo
+        leagueName.innerText = this.name
+        leagueCountry.innerText = this.country
+        leagueDivision.innerText = this.division
         leagueCard.addEventListener('click', () => {
-            fetchLeague(league)
+            fetchLeague(this)
         })
     }
 
     static renderAllLeagues(leagues) {
         return leagues.map(league => {
             const newLeague = new League(league)
-            League.renderLeague(newLeague)
+            newLeague.renderLeague()
         })
     }
 
@@ -98,16 +98,16 @@ class League {
         })
     }
 
-    static editLeague(league) {
+    editLeague() {
         event.preventDefault()
-        league.name = document.querySelector('input[name="league-name"]').value
-        league.logo = document.querySelector('input[name="league-logo"]').value
-        league.country = document.querySelector('input[name="league-country"]').value
-        league.division = document.querySelector('input[name="league-division"]').value
+        this.name = document.querySelector('input[name="league-name"]').value
+        this.logo = document.querySelector('input[name="league-logo"]').value
+        this.country = document.querySelector('input[name="league-country"]').value
+        this.division = document.querySelector('input[name="league-division"]').value
 
-        fetch(leaguesUrl + `/${league.id}`, {
+        fetch(leaguesUrl + `/${this.id}`, {
             method: 'PATCH',
-            body: JSON.stringify(league),
+            body: JSON.stringify(this),
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -118,7 +118,7 @@ class League {
         })
         .then(() => {
             clearForm()
-            fetchLeague(league)   
+            fetchLeague(this)   
         })
     }
 }
